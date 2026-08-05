@@ -30,7 +30,7 @@ export default function middleware(request) {
   return new Response('Authentication required.', {
     status: 401,
     headers: {
-      'WWW-Authenticate': 'Basic realm="JAMA — Private Preview", charset="UTF-8"',
+      'WWW-Authenticate': 'Basic realm="JAMA Private Preview", charset="UTF-8"',
     },
   });
 }
