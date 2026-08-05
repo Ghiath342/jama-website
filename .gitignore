@@ -1,0 +1,11 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Original source photos — not used by the live site (kept locally only)
+assets/img/incoming/
+assets/img/incoming2/
+
+# Node (not used, just in case)
+node_modules/

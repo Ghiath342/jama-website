@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 132" role="img" aria-label="JAMA — Industrial, Engineering, Ventures">
+  <!-- Faithful clean recreation of the JAMA mark: hexagon (ventures) + roofline/A (homes) + upward arrow (engineering/growth), in brand navy & bronze. Replace with the official vector when available. -->
+  <g>
+    <!-- hexagon -->
+    <path d="M60 6 L104 31 V81 L60 106 L16 81 V31 Z" fill="none" stroke="#A77B4F" stroke-width="6"/>
+    <!-- roofline "A" (navy) -->
+    <path d="M34 78 L60 34 L86 78" fill="none" stroke="#123C67" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- upward arrow (bronze) -->
+    <path d="M60 86 V38 M46 52 L60 34 L74 52" fill="none" stroke="#A77B4F" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- wordmark -->
+  <text x="122" y="72" font-family="Manrope, Arial, sans-serif" font-size="52" font-weight="800" letter-spacing="6" fill="#123C67">JAM<tspan fill="#A77B4F">A</tspan></text>
+  <!-- tagline -->
+  <text x="123" y="98" font-family="Manrope, Arial, sans-serif" font-size="11.5" font-weight="600" letter-spacing="3.4" fill="#5c6470">INDUSTRIAL · ENGINEERING · VENTURES</text>
+</svg>
