@@ -372,7 +372,8 @@ html[dir="rtl"] .wall-layer:hover { transform: translateX(-6px); }
 .label--done { background: rgba(37,120,80,.94); }
 
 /* ---- Inspiration marquee (two auto-scrolling rows) ----------------------- */
-.gallery-marquee { display: flex; flex-direction: column; gap: 18px; }
+/* keep the marquee left-to-right in both languages so the scroll fills correctly (RTL was leaving a gap) */
+.gallery-marquee { display: flex; flex-direction: column; gap: 18px; direction: ltr; }
 .marquee-row {
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
