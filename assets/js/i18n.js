@@ -13,6 +13,7 @@ const AR = {
   /* nav */
   "nav.home": "الرئيسية",
   "nav.models": "النماذج",
+  "nav.gallery": "المعرض",
   "nav.custom": "تصميم مخصّص",
   "nav.applications": "الاستخدامات",
   "nav.process": "كيف نعمل",

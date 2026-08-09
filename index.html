@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet" href="assets/css/styles.css?v=8" />
+<link rel="stylesheet" href="assets/css/styles.css?v=9" />
 <link rel="icon" type="image/png" href="assets/img/favicon.png" />
 
 <!-- Structured data (Organization + Products) -->
@@ -185,6 +185,7 @@
     <nav class="nav" aria-label="Primary">
       <a href="#home" data-i18n="nav.home">Home</a>
       <a href="#models" data-i18n="nav.models">Models</a>
+      <a href="#inspiration" data-i18n="nav.gallery">Gallery</a>
       <a href="#custom" data-i18n="nav.custom">Custom Design</a>
       <a href="#applications" data-i18n="nav.applications">Applications</a>
       <a href="#process" data-i18n="nav.process">How It Works</a>
@@ -436,6 +437,39 @@
   </div>
 </section>
 
+<!-- ============================ INSPIRATION GALLERY ============================ -->
+<section class="section" id="inspiration">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow" data-i18n="insp.eyebrow">Inspiration Gallery</span>
+      <h2 data-i18n="insp.h2">Design Inspiration</h2>
+      <p data-i18n="insp.p2">A mix of architectural visualizations and real project photography, each labeled by stage. Labels are editable by JAMA.</p>
+    </div>
+    <!-- Two auto-scrolling rows. JS duplicates each row for a seamless loop; hover to pause.
+         Images use object-fit:contain over a blurred fill so no detail is cropped. -->
+    <div class="gallery-marquee reveal">
+      <div class="marquee-row">
+        <div class="marquee-track">
+          <div class="gallery-tile" style="background-image:url('assets/img/house-modern.jpg')"><span class="label label--viz" data-i18n="label.viz">Architectural Visualization</span><img src="assets/img/house-modern.jpg" loading="lazy" alt="Architectural visualization of a modern two-storey home" /></div>
+          <div class="gallery-tile" style="background-image:url('assets/img/garden-pool.jpg')"><span class="label label--done" data-i18n="label.done">Completed Project</span><img src="assets/img/garden-pool.jpg" loading="lazy" alt="Completed landscaped garden and pool" /></div>
+          <div class="gallery-tile" style="background-image:url('assets/img/villa-stone-pool.jpg')"><span class="label label--viz" data-i18n="label.viz">Architectural Visualization</span><img src="assets/img/villa-stone-pool.jpg" loading="lazy" alt="Visualization of a stone residence with pool and terrace" /></div>
+          <div class="gallery-tile" style="background-image:url('assets/img/bath-grey.jpg')"><span class="label label--viz" data-i18n="label.viz">Architectural Visualization</span><img src="assets/img/bath-grey.jpg" loading="lazy" alt="Interior visualization of a marble bathroom" /></div>
+          <div class="gallery-tile" style="background-image:url('assets/img/villa-classic-day.jpg')"><span class="label label--concept" data-i18n="label.concept">Concept Design</span><img src="assets/img/villa-classic-day.jpg" loading="lazy" alt="Concept design of a symmetrical modern villa" /></div>
+        </div>
+      </div>
+      <div class="marquee-row reverse">
+        <div class="marquee-track">
+          <div class="gallery-tile" style="background-image:url('assets/img/build-1.jpg')"><span class="label label--dev" data-i18n="label.dev">In Development</span><img src="assets/img/build-1.jpg" loading="lazy" alt="Stone-clad home under construction in Syria" /></div>
+          <div class="gallery-tile" style="background-image:url('assets/img/villa-night2.jpg')"><span class="label label--done" data-i18n="label.done">Completed Project</span><img src="assets/img/villa-night2.jpg" loading="lazy" alt="Completed residence illuminated at night beside a pool" /></div>
+          <div class="gallery-tile" style="background-image:url('assets/img/build-2.jpg')"><span class="label label--dev" data-i18n="label.dev">In Development</span><img src="assets/img/build-2.jpg" loading="lazy" alt="Stone residence under construction on site" /></div>
+          <div class="gallery-tile" style="background-image:url('assets/img/villa-pool.jpg')"><span class="label label--done" data-i18n="label.done">Completed Project</span><img src="assets/img/villa-pool.jpg" loading="lazy" alt="Completed residence with pool and terrace" /></div>
+          <div class="gallery-tile" style="background-image:url('assets/img/villa-garden.jpg')"><span class="label label--done" data-i18n="label.done">Completed Project</span><img src="assets/img/villa-garden.jpg" loading="lazy" alt="Completed home with landscaped garden and olive tree" /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============================ WHY PREFAB ============================ -->
 <section class="section" id="why">
   <div class="container">
@@ -581,39 +615,6 @@
       <div class="interior-card reveal d2"><img src="assets/img/bath-grey.jpg" loading="lazy" alt="Grey marble bathroom with walk-in shower and niche shelving" /></div>
     </div>
     <p class="note reveal" style="max-width:760px;margin-inline:auto;text-align:center" data-i18n="qual.int.note">Interior visualizations shown for inspiration. Final finishes depend on the selected package and project.</p>
-  </div>
-</section>
-
-<!-- ============================ INSPIRATION GALLERY ============================ -->
-<section class="section" id="inspiration" style="background:var(--white)">
-  <div class="container">
-    <div class="section-head center reveal">
-      <span class="eyebrow" data-i18n="insp.eyebrow">Inspiration Gallery</span>
-      <h2 data-i18n="insp.h2">Design Inspiration</h2>
-      <p data-i18n="insp.p2">A mix of architectural visualizations and real project photography, each labeled by stage. Labels are editable by JAMA.</p>
-    </div>
-    <!-- Two auto-scrolling rows. JS duplicates each row for a seamless loop; hover to pause.
-         Images use object-fit:contain over a blurred fill so no detail is cropped. -->
-    <div class="gallery-marquee reveal">
-      <div class="marquee-row">
-        <div class="marquee-track">
-          <div class="gallery-tile" style="background-image:url('assets/img/house-modern.jpg')"><span class="label label--viz" data-i18n="label.viz">Architectural Visualization</span><img src="assets/img/house-modern.jpg" loading="lazy" alt="Architectural visualization of a modern two-storey home" /></div>
-          <div class="gallery-tile" style="background-image:url('assets/img/garden-pool.jpg')"><span class="label label--done" data-i18n="label.done">Completed Project</span><img src="assets/img/garden-pool.jpg" loading="lazy" alt="Completed landscaped garden and pool" /></div>
-          <div class="gallery-tile" style="background-image:url('assets/img/villa-stone-pool.jpg')"><span class="label label--viz" data-i18n="label.viz">Architectural Visualization</span><img src="assets/img/villa-stone-pool.jpg" loading="lazy" alt="Visualization of a stone residence with pool and terrace" /></div>
-          <div class="gallery-tile" style="background-image:url('assets/img/bath-grey.jpg')"><span class="label label--viz" data-i18n="label.viz">Architectural Visualization</span><img src="assets/img/bath-grey.jpg" loading="lazy" alt="Interior visualization of a marble bathroom" /></div>
-          <div class="gallery-tile" style="background-image:url('assets/img/villa-classic-day.jpg')"><span class="label label--concept" data-i18n="label.concept">Concept Design</span><img src="assets/img/villa-classic-day.jpg" loading="lazy" alt="Concept design of a symmetrical modern villa" /></div>
-        </div>
-      </div>
-      <div class="marquee-row reverse">
-        <div class="marquee-track">
-          <div class="gallery-tile" style="background-image:url('assets/img/build-1.jpg')"><span class="label label--dev" data-i18n="label.dev">In Development</span><img src="assets/img/build-1.jpg" loading="lazy" alt="Stone-clad home under construction in Syria" /></div>
-          <div class="gallery-tile" style="background-image:url('assets/img/villa-night2.jpg')"><span class="label label--done" data-i18n="label.done">Completed Project</span><img src="assets/img/villa-night2.jpg" loading="lazy" alt="Completed residence illuminated at night beside a pool" /></div>
-          <div class="gallery-tile" style="background-image:url('assets/img/build-2.jpg')"><span class="label label--dev" data-i18n="label.dev">In Development</span><img src="assets/img/build-2.jpg" loading="lazy" alt="Stone residence under construction on site" /></div>
-          <div class="gallery-tile" style="background-image:url('assets/img/villa-pool.jpg')"><span class="label label--done" data-i18n="label.done">Completed Project</span><img src="assets/img/villa-pool.jpg" loading="lazy" alt="Completed residence with pool and terrace" /></div>
-          <div class="gallery-tile" style="background-image:url('assets/img/villa-garden.jpg')"><span class="label label--done" data-i18n="label.done">Completed Project</span><img src="assets/img/villa-garden.jpg" loading="lazy" alt="Completed home with landscaped garden and olive tree" /></div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 

@@ -90,12 +90,6 @@ html[lang="ar"] .eyebrow { letter-spacing: 0.06em; }
 
 /* ---- Fancy section titles ------------------------------------------------ */
 .section h2 { color: var(--navy-deep); }
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .section h2 {
-    background: linear-gradient(178deg, #205a8c 0%, var(--navy) 48%, var(--navy-deep) 100%);
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  }
-}
 /* bronze underline flourish that draws in when the section reveals */
 .section h2::after {
   content: ""; display: block; height: 3px; width: 0; margin-top: 18px; border-radius: 3px;
@@ -384,7 +378,7 @@ html[dir="rtl"] .wall-layer:hover { transform: translateX(-6px); }
   -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
 }
-.marquee-track { display: flex; gap: 18px; width: max-content; will-change: transform; animation: marquee 48s linear infinite; }
+.marquee-track { display: flex; gap: 18px; width: max-content; will-change: transform; animation: marquee 32s linear infinite; }
 .marquee-row.reverse .marquee-track { animation-direction: reverse; }
 .marquee-row:hover .marquee-track { animation-play-state: paused; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
