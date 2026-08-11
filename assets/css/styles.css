@@ -669,6 +669,11 @@ html[dir="rtl"] .modal__panel { animation-name: slideInRtl; }
 @media (max-width: 1040px) {
   :root { --header-h: 74px; }
   .brand .logo-img { height: 42px; }
+  /* the header's backdrop-filter turns it into the containing block for the
+     fixed menu (clamping it to header height) — drop it on mobile so the drawer
+     can fill the whole viewport */
+  .site-header, .site-header.scrolled { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .site-header.scrolled { background: rgba(255,255,255,.97); }
   .nav, .header-actions .btn--consult { display: none; }
   .nav-toggle { display: block; margin-inline-start: auto; }
   .header-actions { margin-inline-start: auto; }
