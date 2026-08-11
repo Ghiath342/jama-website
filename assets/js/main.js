@@ -21,6 +21,8 @@
     toggle.setAttribute("aria-expanded", String(open));
   });
   $$(".nav a").forEach((a) => a.addEventListener("click", closeMenu));
+  const backdrop = $(".nav-backdrop");
+  if (backdrop) backdrop.addEventListener("click", closeMenu);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
 
   /* ---- Reveal on scroll -------------------------------------------------- */
