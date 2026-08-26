@@ -196,6 +196,23 @@
     track.addEventListener("mouseleave", clear);
   })();
 
+  /* ---- Video showcase: click to play with sound + controls --------------- */
+  $$(".video-play").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const frame = btn.closest(".video-frame");
+      const video = frame && $("video", frame);
+      if (!video) return;
+      video.controls = true;
+      frame.classList.add("playing");
+      const p = video.play();
+      if (p && p.catch) p.catch(() => {});
+      video.addEventListener("ended", () => {
+        frame.classList.remove("playing");
+        video.controls = false;
+      }, { once: true });
+    });
+  });
+
   /* ---- Footer year ------------------------------------------------------- */
   const yr = $("#year"); if (yr) yr.textContent = new Date().getFullYear();
 })();
