@@ -69,14 +69,9 @@
 
   /* ---- Forms: spam guard + success message ------------------------------ */
   $$("form[data-jama-form]").forEach((form) => {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      // Honeypot: bots fill hidden field
-      const hp = $(".honeypot input", form);
-      if (hp && hp.value) return;
-      // Basic required validation is native via [required]
-      if (!form.checkValidity()) { form.reportValidity(); return; }
-      const success = $(".form-success", form);
+    const success = $(".form-success", form);
+    const submitBtn = $('button[type="submit"]', form);
+    const showSuccess = () => {
       form.querySelectorAll("input, select, textarea, button").forEach((el) => {
         if (!el.classList.contains("form-keep")) el.setAttribute("disabled", "");
       });
@@ -85,7 +80,28 @@
         success.setAttribute("role", "status");
         success.scrollIntoView({ behavior: "smooth", block: "center" });
       }
-      // NOTE for developer: POST `new FormData(form)` to your backend / email service here.
+    };
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const hp = $(".honeypot input", form);      // bots fill the hidden field
+      if (hp && hp.value) return;
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      // No email endpoint configured -> just confirm (fallback)
+      if (!form.action || !/formsubmit\.co/.test(form.action)) { showSuccess(); return; }
+
+      if (submitBtn) submitBtn.setAttribute("disabled", "");
+      try {
+        await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+        showSuccess();
+      } catch (err) {
+        if (submitBtn) submitBtn.removeAttribute("disabled");
+        alert("Sorry — your message couldn't be sent. Please email contact@jamasyr.info or reach us on WhatsApp.");
+      }
     });
   });
 
