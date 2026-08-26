@@ -295,25 +295,20 @@ html[dir="rtl"] .scroll-hint { transform: translateX(50%); letter-spacing: .04em
 }
 .video-frame:hover { transform: translateY(-5px); box-shadow: 0 30px 70px rgba(10,37,64,.28); }
 .video-frame video { width: 100%; height: auto; display: block; }
-.video-frame::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; transition: opacity .45s var(--ease);
-  background: radial-gradient(60% 60% at 50% 50%, rgba(10,37,64,.15), rgba(10,37,64,.55));
-}
-.video-frame.playing::after { opacity: 0; }
 
-.video-play {
-  position: absolute; inset: 0; margin: auto; width: 88px; height: 88px; border-radius: 50%; border: none;
-  background: rgba(255,255,255,.16); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-  display: grid; place-items: center; cursor: pointer; z-index: 2;
-  transition: transform .3s var(--ease), background .3s var(--ease), opacity .35s var(--ease), visibility .35s;
+/* sound toggle (video auto-plays muted + loops) */
+.video-sound {
+  position: absolute; inset-block-end: 16px; inset-inline-end: 16px; width: 50px; height: 50px; border-radius: 50%;
+  background: rgba(10,37,64,.5); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(255,255,255,.35); display: grid; place-items: center; cursor: pointer; z-index: 2;
+  transition: transform .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease);
 }
-.video-play svg { width: 32px; height: 32px; fill: #fff; margin-inline-start: 5px; transition: fill .3s var(--ease); }
-.video-play:hover { transform: scale(1.09); background: var(--bronze); }
-.video-play__ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(255,255,255,.65); animation: videopulse 2.4s var(--ease) infinite; }
-@keyframes videopulse { 0% { transform: scale(1); opacity: .85; } 100% { transform: scale(1.7); opacity: 0; } }
-.video-frame.playing .video-play { opacity: 0; visibility: hidden; }
-@media (prefers-reduced-motion: reduce) { .video-play__ring { animation: none; } }
-@media (max-width: 560px) { .video-play { width: 68px; height: 68px; } .video-play svg { width: 26px; height: 26px; } }
+.video-sound:hover { transform: scale(1.08); background: var(--bronze); border-color: var(--bronze); }
+.video-sound svg { width: 22px; height: 22px; fill: #fff; }
+.video-sound .icon-sound { display: none; }
+.video-frame.unmuted .video-sound .icon-muted { display: none; }
+.video-frame.unmuted .video-sound .icon-sound { display: block; }
+@media (max-width: 560px) { .video-sound { width: 44px; height: 44px; inset-block-end: 12px; inset-inline-end: 12px; } .video-sound svg { width: 20px; height: 20px; } }
 
 /* ---- Feature grid (Why) -------------------------------------------------- */
 .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }

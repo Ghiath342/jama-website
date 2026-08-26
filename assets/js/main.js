@@ -196,21 +196,27 @@
     track.addEventListener("mouseleave", clear);
   })();
 
-  /* ---- Video showcase: click to play with sound + controls --------------- */
-  $$(".video-play").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const frame = btn.closest(".video-frame");
-      const video = frame && $("video", frame);
-      if (!video) return;
-      video.controls = true;
-      frame.classList.add("playing");
-      const p = video.play();
-      if (p && p.catch) p.catch(() => {});
-      video.addEventListener("ended", () => {
-        frame.classList.remove("playing");
-        video.controls = false;
-      }, { once: true });
-    });
+  /* ---- Video showcase: ambient autoplay (muted) + loop, with unmute ------- */
+  $$(".video-frame").forEach((frame) => {
+    const video = $("video", frame);
+    const btn = $(".video-sound", frame);
+    if (!video) return;
+    const tryPlay = () => { const p = video.play(); if (p && p.catch) p.catch(() => {}); };
+    tryPlay();
+    if (btn) {
+      btn.addEventListener("click", () => {
+        video.muted = !video.muted;
+        frame.classList.toggle("unmuted", !video.muted);
+        btn.setAttribute("aria-label", video.muted ? "Unmute video" : "Mute video");
+        tryPlay();
+      });
+    }
+    // pause when scrolled out of view, resume when back (saves battery/data)
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((ents) => {
+        ents.forEach((e) => { if (e.isIntersecting) tryPlay(); else video.pause(); });
+      }, { threshold: 0.25 }).observe(video);
+    }
   });
 
   /* ---- Footer year ------------------------------------------------------- */

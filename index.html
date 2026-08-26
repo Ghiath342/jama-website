@@ -263,12 +263,12 @@
       <p data-i18n="film.p">A closer look at JAMA's approach to modern prefabricated living.</p>
     </div>
     <div class="video-frame reveal">
-      <video class="jama-video" preload="metadata" playsinline>
+      <video class="jama-video" autoplay muted loop playsinline preload="auto">
         <source src="assets/video/jama.mp4" type="video/mp4" />
       </video>
-      <button class="video-play" aria-label="Play video" data-i18n-aria="film.play">
-        <span class="video-play__ring"></span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+      <button class="video-sound" aria-label="Unmute video" data-i18n-aria="film.sound">
+        <svg class="icon-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" /><path d="M16 9l5 6M21 9l-5 6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" /></svg>
+        <svg class="icon-sound" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" /><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" /></svg>
       </button>
     </div>
   </div>
