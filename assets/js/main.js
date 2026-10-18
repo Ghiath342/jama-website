@@ -235,6 +235,63 @@
     }
   });
 
+  /* ---- Video playlist: switch clips, show progress, auto-advance ---------- */
+  $$(".film").forEach((film) => {
+    const stage = $(".film-stage", film);
+    const video = $("video", stage);
+    const items = $$(".film-item", film);
+    const idxEl = $(".film-idx", stage);
+    const titleEl = $(".film-title", stage);
+    if (!video || !items.length) return;
+    let current = 0;
+
+    const syncCaption = () => {
+      idxEl.textContent = String(current + 1).padStart(2, "0");
+      titleEl.innerHTML = $(".film-name", items[current]).innerHTML;
+    };
+    const setProgress = (i, ratio) => {
+      const bar = $(".film-progress i", items[i]);
+      if (bar) bar.style.transform = "scaleX(" + ratio + ")";
+    };
+    const select = (i) => {
+      if (i === current) { video.currentTime = 0; video.play().catch(() => {}); return; }
+      setProgress(current, 0);
+      items[current].classList.remove("active");
+      items[current].setAttribute("aria-pressed", "false");
+      current = i;
+      items[i].classList.add("active");
+      items[i].setAttribute("aria-pressed", "true");
+      stage.classList.add("switching");
+      setTimeout(() => {
+        video.poster = items[i].dataset.poster || "";
+        video.src = items[i].dataset.src;
+        syncCaption();
+        const p = video.play();
+        if (p && p.catch) p.catch(() => {});
+      }, 300);
+    };
+
+    video.addEventListener("playing", () => stage.classList.remove("switching"));
+    video.addEventListener("loadeddata", () => stage.classList.remove("switching"));
+    video.addEventListener("timeupdate", () => {
+      if (video.duration) setProgress(current, video.currentTime / video.duration);
+    });
+    video.addEventListener("ended", () => {
+      const next = (current + 1) % items.length;
+      select(next);
+      centreCard(items[next]);
+    });
+    // on phones the cards are a swipeable row: centre the tapped card (scrolls the row only, never the page)
+    const list = $(".film-list", film);
+    const centreCard = (item) => {
+      const r = item.getBoundingClientRect(), lr = list.getBoundingClientRect();
+      list.scrollBy({ left: r.left + r.width / 2 - (lr.left + lr.width / 2), behavior: "smooth" });
+    };
+    items.forEach((item, i) => item.addEventListener("click", () => { select(i); centreCard(item); }));
+    window.addEventListener("jama:lang", syncCaption);
+    syncCaption();
+  });
+
   /* ---- Footer year ------------------------------------------------------- */
   const yr = $("#year"); if (yr) yr.textContent = new Date().getFullYear();
 })();

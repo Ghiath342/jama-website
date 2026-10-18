@@ -262,14 +262,62 @@
       <h2 data-i18n="film.h2">See It Come to Life</h2>
       <p data-i18n="film.p">A closer look at JAMA's approach to modern prefabricated living.</p>
     </div>
-    <div class="video-frame reveal">
-      <video class="jama-video" autoplay muted loop playsinline preload="auto">
-        <source src="assets/video/jama.mp4" type="video/mp4" />
-      </video>
-      <button class="video-sound" aria-label="Unmute video" data-i18n-aria="film.sound">
-        <svg class="icon-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" /><path d="M16 9l5 6M21 9l-5 6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" /></svg>
-        <svg class="icon-sound" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" /><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" /></svg>
-      </button>
+    <div class="film reveal">
+      <!-- main player: plays the active clip, then moves on to the next one -->
+      <div class="video-frame film-stage">
+        <video class="jama-video" autoplay muted playsinline preload="auto" poster="assets/img/film-structure.jpg" src="assets/video/jama.mp4"></video>
+        <div class="film-caption" aria-live="polite">
+          <span class="film-count"><b class="film-idx">01</b> / 03</span>
+          <span class="film-title">Steel Structure</span>
+        </div>
+        <button class="video-sound" aria-label="Unmute video" data-i18n-aria="film.sound">
+          <svg class="icon-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" /><path d="M16 9l5 6M21 9l-5 6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" /></svg>
+          <svg class="icon-sound" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" /><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" /></svg>
+        </button>
+      </div>
+
+      <!-- playlist -->
+      <div class="film-list">
+        <button class="film-item active" data-src="assets/video/jama.mp4" data-poster="assets/img/film-structure.jpg" aria-pressed="true">
+          <span class="film-thumb">
+            <img src="assets/img/film-structure.jpg" alt="" loading="lazy" />
+            <span class="film-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg></span>
+            <span class="film-dur">0:10</span>
+          </span>
+          <span class="film-meta">
+            <span class="film-num">01</span>
+            <span class="film-name" data-i18n="film.v1.t">Steel Structure</span>
+            <span class="film-desc" data-i18n="film.v1.d">A precision-engineered frame, set on a ready foundation.</span>
+          </span>
+          <span class="film-progress"><i></i></span>
+        </button>
+        <button class="film-item" data-src="assets/video/jama-assembly.mp4" data-poster="assets/img/film-assembly.jpg" aria-pressed="false">
+          <span class="film-thumb">
+            <img src="assets/img/film-assembly.jpg" alt="" loading="lazy" />
+            <span class="film-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg></span>
+            <span class="film-dur">0:10</span>
+          </span>
+          <span class="film-meta">
+            <span class="film-num">02</span>
+            <span class="film-name" data-i18n="film.v2.t">Modular Assembly</span>
+            <span class="film-desc" data-i18n="film.v2.d">Finished wall panels lifted into place and joined on site.</span>
+          </span>
+          <span class="film-progress"><i></i></span>
+        </button>
+        <button class="film-item" data-src="assets/video/jama-site-to-home.mp4" data-poster="assets/img/film-site-to-home.jpg" aria-pressed="false">
+          <span class="film-thumb">
+            <img src="assets/img/film-site-to-home.jpg" alt="" loading="lazy" />
+            <span class="film-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg></span>
+            <span class="film-dur">0:10</span>
+          </span>
+          <span class="film-meta">
+            <span class="film-num">03</span>
+            <span class="film-name" data-i18n="film.v3.t">From Site to Home</span>
+            <span class="film-desc" data-i18n="film.v3.d">Watch prepared panels become a complete family home.</span>
+          </span>
+          <span class="film-progress"><i></i></span>
+        </button>
+      </div>
     </div>
   </div>
 </section>
