@@ -1215,3 +1215,9 @@ html[lang="ar"] .t-en, html:not([lang="ar"]) .t-ar { display: none; }
 .mdl-browse .filters { justify-content: center; }
 .mdl-browse .note { margin-top: 40px; }
 #models .note { margin-top: 30px; }
+
+/* model codes, floors and per-m² rate */
+.mdl-code { font-weight: 800; letter-spacing: .12em; font-size: .78rem; }
+.mdl-rate { margin-top: 4px; font-size: .78rem; color: var(--muted); }
+html[dir="rtl"] .mdl-rate { text-align: right; }
+.mdl-price--quote b { color: var(--bronze); }

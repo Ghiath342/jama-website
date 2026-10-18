@@ -334,172 +334,14 @@
 
     <div class="filters reveal" role="group" aria-label="Filter models">
       <button class="filter-btn active" data-filter="all" data-i18n="filter.all">All</button>
-      <button class="filter-btn" data-filter="residential" data-i18n="filter.residential">Residential</button>
-      <button class="filter-btn" data-filter="hospitality" data-i18n="filter.hospitality">Hospitality</button>
-      <button class="filter-btn" data-filter="commercial" data-i18n="filter.commercial">Commercial</button>
-      <button class="filter-btn" data-filter="compact" data-i18n="filter.compact">Compact Units</button>
-      <button class="filter-btn" data-filter="family" data-i18n="filter.family">Family Homes</button>
-      <button class="filter-btn" data-filter="custom" data-i18n="filter.custom">Custom Projects</button>
+      <button class="filter-btn" data-filter="one-floor" data-i18n="filter.one">One Floor</button>
+      <button class="filter-btn" data-filter="two-floors" data-i18n="filter.two">Two Floors</button>
+      <button class="filter-btn" data-filter="special" data-i18n="filter.special">Special</button>
     </div>
 
     <div class="model-grid">
-      <!-- Card template repeats. data-* drive the detail modal & are fully editable. -->
-      <article class="model-card reveal" data-cat="residential hospitality compact custom"
-        data-name="JAMA One" data-type="Compact studio living" data-area="~18 m²" data-bed="Studio" data-bath="1"
-        data-use="Studio / Hospitality" data-desc="A smart studio unit for simple, elegant living — ideal for individuals or compact hospitality.">
-        <div class="model-card__img"><img src="assets/img/cabin.jpg" loading="lazy" alt="JAMA One — compact prefabricated cabin" />
-          <span class="model-card__tag" data-i18n="filter.compact">Compact Units</span></div>
-        <div class="model-card__body">
-          <h3 data-i18n="m1.name">JAMA One</h3>
-          <div class="model-card__type" data-i18n="m1.type">Compact studio living</div>
-          <p class="model-card__desc" data-i18n="m1.desc">A smart studio unit for simple, elegant living — ideal for individuals or compact hospitality.</p>
-          <ul class="model-specs">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>~18 m²</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg><span data-i18n="m1.use">Studio</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16v4a3 3 0 01-3 3H7a3 3 0 01-3-3zM6 12V6a2 2 0 012-2"/></svg>1</li>
-          </ul>
-          <div class="model-card__price" data-i18n="model.price">Price available upon request</div>
-          <div class="model-card__actions">
-            <a href="#" class="btn btn--navy btn--sm js-view-model" data-i18n="model.view">View Model</a>
-            <a href="#contact" class="btn btn--ghost btn--sm js-request-price" data-i18n="model.request">Request Price</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="model-card reveal d1" data-cat="residential compact custom"
-        data-name="JAMA Nest" data-type="One-bedroom home" data-area="~35 m²" data-bed="1" data-bath="1"
-        data-use="Primary residence" data-desc="A warm, practical one-bedroom home balancing privacy and open living for everyday life.">
-        <div class="model-card__img"><img src="assets/img/villa-night.jpg" loading="lazy" alt="JAMA Nest — modern one-bedroom home at night" />
-          <span class="model-card__tag" data-i18n="filter.residential">Residential</span></div>
-        <div class="model-card__body">
-          <h3 data-i18n="m2.name">JAMA Nest</h3>
-          <div class="model-card__type" data-i18n="m2.type">One-bedroom home</div>
-          <p class="model-card__desc" data-i18n="m2.desc">A warm, practical one-bedroom home balancing privacy and open living for everyday life.</p>
-          <ul class="model-specs">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>~35 m²</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg>1</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16v4a3 3 0 01-3 3H7a3 3 0 01-3-3zM6 12V6a2 2 0 012-2"/></svg>1</li>
-          </ul>
-          <div class="model-card__price" data-i18n="model.price">Price available upon request</div>
-          <div class="model-card__actions">
-            <a href="#" class="btn btn--navy btn--sm js-view-model" data-i18n="model.view">View Model</a>
-            <a href="#contact" class="btn btn--ghost btn--sm js-request-price" data-i18n="model.request">Request Price</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="model-card reveal d2" data-cat="residential family custom"
-        data-name="JAMA Family" data-type="Practical family residence" data-area="~75 m²" data-bed="2–3" data-bath="2"
-        data-use="Family home" data-desc="A practical family residence with flexible living spaces and multiple bedrooms designed for daily life.">
-        <div class="model-card__img"><img src="assets/img/villa-classic-day.jpg" loading="lazy" alt="JAMA Family — practical family residence" />
-          <span class="model-card__tag" data-i18n="filter.family">Family Homes</span></div>
-        <div class="model-card__body">
-          <h3 data-i18n="m3.name">JAMA Family</h3>
-          <div class="model-card__type" data-i18n="m3.type">Practical family residence</div>
-          <p class="model-card__desc" data-i18n="m3.desc">A practical family residence with flexible living spaces and multiple bedrooms designed for daily life.</p>
-          <ul class="model-specs">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>~75 m²</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg>2–3</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16v4a3 3 0 01-3 3H7a3 3 0 01-3-3zM6 12V6a2 2 0 012-2"/></svg>2</li>
-          </ul>
-          <div class="model-card__price" data-i18n="model.price">Price available upon request</div>
-          <div class="model-card__actions">
-            <a href="#" class="btn btn--navy btn--sm js-view-model" data-i18n="model.view">View Model</a>
-            <a href="#contact" class="btn btn--ghost btn--sm js-request-price" data-i18n="model.request">Request Price</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="model-card reveal" data-cat="residential hospitality custom"
-        data-name="JAMA Vista" data-type="Panoramic modern cabin" data-area="~45 m²" data-bed="1" data-bath="1"
-        data-use="Vacation home" data-desc="A modern cabin with generous glazing that opens to the landscape — for countryside, mountains and coast.">
-        <div class="model-card__img"><img src="assets/img/villa-stone-pool.jpg" loading="lazy" alt="JAMA Vista — panoramic modern residence with a view" />
-          <span class="model-card__tag" data-i18n="filter.hospitality">Hospitality</span></div>
-        <div class="model-card__body">
-          <h3 data-i18n="m4.name">JAMA Vista</h3>
-          <div class="model-card__type" data-i18n="m4.type">Panoramic modern cabin</div>
-          <p class="model-card__desc" data-i18n="m4.desc">A modern cabin with generous glazing that opens to the landscape — for countryside, mountains and coast.</p>
-          <ul class="model-specs">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>~45 m²</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg>1</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16v4a3 3 0 01-3 3H7a3 3 0 01-3-3zM6 12V6a2 2 0 012-2"/></svg>1</li>
-          </ul>
-          <div class="model-card__price" data-i18n="model.price">Price available upon request</div>
-          <div class="model-card__actions">
-            <a href="#" class="btn btn--navy btn--sm js-view-model" data-i18n="model.view">View Model</a>
-            <a href="#contact" class="btn btn--ghost btn--sm js-request-price" data-i18n="model.request">Request Price</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="model-card reveal d1" data-cat="residential family custom"
-        data-name="JAMA Courtyard" data-type="Home around a private courtyard" data-area="~90 m²" data-bed="3" data-bath="2"
-        data-use="Residential" data-desc="A home designed around a private outdoor courtyard bringing light, air and privacy to its heart.">
-        <div class="model-card__img"><img src="assets/img/garden-pool.jpg" loading="lazy" alt="JAMA Courtyard — home designed around a private outdoor space" />
-          <span class="model-card__tag" data-i18n="filter.family">Family Homes</span></div>
-        <div class="model-card__body">
-          <h3 data-i18n="m5.name">JAMA Courtyard</h3>
-          <div class="model-card__type" data-i18n="m5.type">Home around a private courtyard</div>
-          <p class="model-card__desc" data-i18n="m5.desc">A home designed around a private outdoor courtyard bringing light, air and privacy to its heart.</p>
-          <ul class="model-specs">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>~90 m²</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg>3</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16v4a3 3 0 01-3 3H7a3 3 0 01-3-3zM6 12V6a2 2 0 012-2"/></svg>2</li>
-          </ul>
-          <div class="model-card__price" data-i18n="model.price">Price available upon request</div>
-          <div class="model-card__actions">
-            <a href="#" class="btn btn--navy btn--sm js-view-model" data-i18n="model.view">View Model</a>
-            <a href="#contact" class="btn btn--ghost btn--sm js-request-price" data-i18n="model.request">Request Price</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="model-card reveal d2" data-cat="hospitality custom"
-        data-name="JAMA Retreat" data-type="Hospitality & countryside stay" data-area="~30 m²" data-bed="1" data-bath="1"
-        data-use="Hospitality / Tourism" data-desc="An elegant tourism accommodation unit for retreats, countryside and hospitality projects with warm detailing.">
-        <div class="model-card__img"><img src="assets/img/villa-night2.jpg" loading="lazy" alt="JAMA Retreat — countryside hospitality residence at night" />
-          <span class="model-card__tag" data-i18n="filter.hospitality">Hospitality</span></div>
-        <div class="model-card__body">
-          <h3 data-i18n="m6.name">JAMA Retreat</h3>
-          <div class="model-card__type" data-i18n="m6.type">Hospitality & countryside stay</div>
-          <p class="model-card__desc" data-i18n="m6.desc">An elegant tourism accommodation unit for retreats, countryside and hospitality projects with warm detailing.</p>
-          <ul class="model-specs">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>~30 m²</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg>1</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16v4a3 3 0 01-3 3H7a3 3 0 01-3-3zM6 12V6a2 2 0 012-2"/></svg>1</li>
-          </ul>
-          <div class="model-card__price" data-i18n="model.price">Price available upon request</div>
-          <div class="model-card__actions">
-            <a href="#" class="btn btn--navy btn--sm js-view-model" data-i18n="model.view">View Model</a>
-            <a href="#contact" class="btn btn--ghost btn--sm js-request-price" data-i18n="model.request">Request Price</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="model-card reveal" data-cat="commercial custom"
-        data-name="JAMA Work" data-type="Office or commercial unit" data-area="~40 m²" data-bed="Office" data-bath="1"
-        data-use="Office / Commercial" data-desc="A modular workspace or commercial unit adaptable for offices, clinics and retail spaces.">
-        <div class="model-card__img"><svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><use href="#house-a"/></svg>
-          <span class="model-card__tag" data-i18n="filter.commercial">Commercial</span></div>
-        <div class="model-card__body">
-          <h3 data-i18n="m7.name">JAMA Work</h3>
-          <div class="model-card__type" data-i18n="m7.type">Office or commercial unit</div>
-          <p class="model-card__desc" data-i18n="m7.desc">A modular workspace or commercial unit adaptable for offices, clinics and retail spaces.</p>
-          <ul class="model-specs">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>~40 m²</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21V7a2 2 0 012-2h6v16M12 9h6a2 2 0 012 2v10"/></svg><span data-i18n="m7.use">Office</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16v4a3 3 0 01-3 3H7a3 3 0 01-3-3zM6 12V6a2 2 0 012-2"/></svg>1</li>
-          </ul>
-          <div class="model-card__price" data-i18n="model.price">Price available upon request</div>
-          <div class="model-card__actions">
-            <a href="#" class="btn btn--navy btn--sm js-view-model" data-i18n="model.view">View Model</a>
-            <a href="#contact" class="btn btn--ghost btn--sm js-request-price" data-i18n="model.request">Request Price</a>
-          </div>
-        </div>
-      </article>
-
       <!-- Custom-design promo card (always visible) -->
-      <article class="model-card reveal d1" data-cat="residential hospitality commercial compact family custom"
+      <article class="model-card reveal d1" data-cat="one-floor two-floors special"
         style="border:1.5px dashed var(--line-strong);background:var(--offwhite)">
         <div class="model-card__body" style="justify-content:center;text-align:center;align-items:center;min-height:280px">
           <div class="feature-icon" style="margin-inline:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
@@ -511,7 +353,7 @@
     </div>
     <p class="note" data-i18n="mdl.fob.note">* FOB price: ex-factory price. It does not include tax, shipping or customs clearance.</p>
     <div class="fin-home-cta reveal">
-      <a href="models.html" class="btn btn--navy"><span><span data-i18n="mdl.home.cta">View all models</span> (<span data-models-count>25</span>)</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="chev"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
+      <a href="models.html" class="btn btn--navy"><span><span data-i18n="mdl.home.cta">View all models</span> (<span data-models-count>24</span>)</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="chev"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
     </div>
   </div>
 </section>
