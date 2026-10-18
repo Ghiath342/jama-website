@@ -292,16 +292,60 @@
     syncCaption();
   });
 
-  /* ---- Contact: pre-fill the message when coming from a chosen finish ---- */
+  /* ---- "Inside a JAMA Home" tabs ----------------------------------------- */
+  $$(".in-tabs").forEach((bar) => {
+    const section = bar.closest("section");
+    const tabs = $$(".in-tab", bar);
+    tabs.forEach((tab) => tab.addEventListener("click", () => {
+      tabs.forEach((t) => { const on = t === tab; t.classList.toggle("active", on); t.setAttribute("aria-selected", String(on)); });
+      $$(".in-panel", section).forEach((p) => {
+        const on = p.dataset.panel === tab.dataset.tab;
+        p.classList.toggle("active", on);
+        p.hidden = !on;
+      });
+      const r = tab.getBoundingClientRect(), br = bar.getBoundingClientRect();
+      bar.scrollBy({ left: r.left + r.width / 2 - (br.left + br.width / 2), behavior: "smooth" });
+    }));
+  });
+
+  /* ---- Lightbox for [data-zoom] images ----------------------------------- */
   (function () {
-    let finish = null;
-    try { finish = new URLSearchParams(location.search).get("finish"); } catch (e) {}
+    const links = $$("a[data-zoom]");
+    if (!links.length) return;
+    const lb = document.createElement("div");
+    lb.className = "lightbox";
+    lb.setAttribute("role", "dialog");
+    lb.setAttribute("aria-modal", "true");
+    lb.innerHTML = '<button type="button" class="lightbox__close" aria-label="Close">✕</button><img alt="" />';
+    body.appendChild(lb);
+    const img = $("img", lb);
+    const close = () => { lb.classList.remove("open"); body.style.overflow = ""; };
+    links.forEach((a) => a.addEventListener("click", (e) => {
+      e.preventDefault();
+      img.src = a.getAttribute("href");
+      img.alt = ($("img", a) || {}).alt || "";
+      lb.classList.add("open");
+      body.style.overflow = "hidden";
+    }));
+    lb.addEventListener("click", close);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && lb.classList.contains("open")) close(); });
+  })();
+
+  /* ---- Contact: pre-fill the message when coming from a chosen finish or model */
+  (function () {
+    let finish = null, model = null;
+    try {
+      const q = new URLSearchParams(location.search);
+      finish = q.get("finish"); model = q.get("model");
+    } catch (e) {}
     const msg = $('#contact textarea[name="Message"]');
-    if (!finish || !msg) return;
+    if ((!finish && !model) || !msg) return;
     // runs after the language engine has applied the saved language
     document.addEventListener("DOMContentLoaded", () => {
       const ar = document.documentElement.getAttribute("lang") === "ar";
-      msg.value = (ar ? "أنا مهتم بلوح الكسوة: " : "I'm interested in the façade finish: ") + finish;
+      msg.value = finish
+        ? (ar ? "أنا مهتم بلوح الكسوة: " : "I'm interested in the façade finish: ") + finish
+        : (ar ? "أرغب بمعرفة سعر النموذج: " : "I'd like a price for the model: ") + model;
     });
   })();
 
