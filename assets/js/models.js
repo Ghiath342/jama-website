@@ -33,13 +33,6 @@ const JAMA_MODELS = [
   { code: "016", img: "assets/img/models/m16.jpg", floors: 2, name: { en: "Cream Villa with Terraces", ar: "فيلا كريمية بتراسات" } },
   { code: "017", img: "assets/img/models/m17.jpg", floors: 2, name: { en: "Red-Roof Villa with Balcony", ar: "فيلا بسقف أحمر وشرفة" } },
   { code: "018", img: "assets/img/models/m18.jpg", floors: 2, name: { en: "Narrow Villa with Stone Base", ar: "فيلا ضيقة بقاعدة حجرية" } },
-  /* earlier models */
-  { code: "019", img: "assets/img/cabin.jpg", floors: 1, special: true, name: { en: "A-Frame Wooden Cabin", ar: "كابينة خشبية بسقف مثلث" } },
-  { code: "020", img: "assets/img/villa-night.jpg", floors: 2, special: true, name: { en: "Flat-Roof Villa with Pool", ar: "فيلا بسطح مستوٍ ومسبح" } },
-  { code: "021", img: "assets/img/villa-classic-day.jpg", floors: 2, name: { en: "Classic Columned Villa", ar: "فيلا كلاسيكية بأعمدة" } },
-  { code: "022", img: "assets/img/villa-stone-pool.jpg", floors: 2, special: true, name: { en: "Stone Villa with Pool", ar: "فيلا حجرية مع مسبح" } },
-  { code: "023", img: "assets/img/villa-night2.jpg", floors: 2, special: true, name: { en: "Classic Villa at Night", ar: "فيلا كلاسيكية ليلاً" } },
-  { code: "024", img: "assets/img/house-modern.jpg", floors: 2, special: true, name: { en: "Modern Two-Storey House", ar: "منزل حديث بطابقين" } },
 ];
 
 (function () {
