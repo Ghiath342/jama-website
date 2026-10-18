@@ -507,7 +507,7 @@ html[dir="rtl"] .wall-layer:hover { transform: translateX(-6px); }
   -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
 }
 .gallery-tile:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); z-index: 3; }
-@media (max-width: 640px) { .gallery-tile { height: 240px; } }
+@media (max-width: 640px) { .gallery-tile { height: 240px; } .marquee-track { animation-duration: 42s; } } /* faster loop on phones */
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
   .marquee-row { overflow-x: auto; }
@@ -535,7 +535,7 @@ html[dir="rtl"] .wall-layer:hover { transform: translateX(-6px); }
 }
 .form-success.show { display: flex; animation: fadeUp .5s var(--ease); }
 .form-success svg { width: 26px; height: 26px; color: #2f8f5b; flex-shrink: 0; }
-.honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; opacity: 0; pointer-events: none; } /* hidden in place — an off-screen offset made RTL pages scroll sideways */
 
 /* ---- About --------------------------------------------------------------- */
 .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
@@ -728,8 +728,16 @@ html[dir="rtl"] .modal__panel { animation-name: slideInRtl; }
 .interior-card { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); aspect-ratio: 3/4; }
 .interior-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s var(--ease); }
 .interior-card:hover img { transform: scale(1.05); }
-@media (max-width: 760px) { .interiors { grid-template-columns: 1fr 1fr; } .founders-grid { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; } }
-@media (max-width: 480px) { .interiors { grid-template-columns: 1fr; } }
+@media (max-width: 760px) {
+  .founders-grid { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
+  /* phones: interiors become a side-by-side swipeable row */
+  .interiors {
+    display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1); padding: 4px var(--gutter) 14px; scroll-padding-inline: var(--gutter);
+  }
+  .interiors::-webkit-scrollbar { display: none; }
+  .interior-card { flex: 0 0 72%; scroll-snap-align: start; }
+}
 
 /* ---- Reveal animations --------------------------------------------------- */
 .reveal { opacity: 0; transform: translateY(32px) scale(.992); filter: blur(7px); transition: opacity .85s var(--ease), transform .85s var(--ease), filter .85s var(--ease); }

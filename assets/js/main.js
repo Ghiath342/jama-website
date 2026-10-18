@@ -331,21 +331,17 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && lb.classList.contains("open")) close(); });
   })();
 
-  /* ---- Contact: pre-fill the message when coming from a chosen finish or model */
+  /* ---- Contact: pre-fill the message when coming from a chosen finish ---- */
+  /* (models fill the whole form themselves — see models.js) */
   (function () {
-    let finish = null, model = null;
-    try {
-      const q = new URLSearchParams(location.search);
-      finish = q.get("finish"); model = q.get("model");
-    } catch (e) {}
+    let finish = null;
+    try { finish = new URLSearchParams(location.search).get("finish"); } catch (e) {}
     const msg = $('#contact textarea[name="Message"]');
-    if ((!finish && !model) || !msg) return;
+    if (!finish || !msg) return;
     // runs after the language engine has applied the saved language
     document.addEventListener("DOMContentLoaded", () => {
       const ar = document.documentElement.getAttribute("lang") === "ar";
-      msg.value = finish
-        ? (ar ? "أنا مهتم بلوح الكسوة: " : "I'm interested in the façade finish: ") + finish
-        : (ar ? "أرغب بمعرفة سعر النموذج: " : "I'd like a price for the model: ") + model;
+      msg.value = (ar ? "أنا مهتم بلوح الكسوة: " : "I'm interested in the façade finish: ") + finish;
     });
   })();
 

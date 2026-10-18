@@ -54,7 +54,7 @@ const JAMA_MODELS = [
   function card(m, onHome) {
     const p = JAMA_PRICING[m.floors];
     const floors = m.floors === 1 ? both("One floor", "طابق واحد") : both("Two floors", "طابقان");
-    const request = (onHome ? "" : "index.html") + "?model=" + encodeURIComponent(m.code + " — " + m.name.en) + "#contact";
+    const request = onHome ? "#contact" : "index.html?model=" + m.code + "#contact";
     const price = m.special
       ? `<div class="mdl-price mdl-price--quote"><b>${both("Request a price from JAMA", "اطلب السعر من جاما")}</b></div>`
       : `<div class="mdl-price">
@@ -77,7 +77,7 @@ const JAMA_MODELS = [
           </ul>
           ${price}
           <div class="model-card__actions">
-            <a href="${request}" class="btn btn--primary btn--sm">${m.special ? both("Request Price", "اطلب السعر") : both("Request This Model", "اطلب هذا النموذج")}</a>
+            <a href="${request}" class="btn btn--primary btn--sm" data-model="${m.code}">${m.special ? both("Request Price", "اطلب السعر") : both("Request This Model", "اطلب هذا النموذج")}</a>
           </div>
         </div>
       </article>`;
@@ -96,6 +96,54 @@ const JAMA_MODELS = [
   if (sel) {
     Array.from(sel.options).slice(1).forEach((o) => o.remove());
     JAMA_MODELS.forEach((m) => sel.add(new Option(m.code + " — " + m.name.en, m.code + " — " + m.name.en)));
+  }
+
+  /* ---- Fill the inquiry form for a chosen model ------------------------- */
+  function fillContact(code) {
+    const m = JAMA_MODELS.find((x) => x.code === code);
+    const form = document.querySelector("#contact form");
+    if (!m || !form) return false;
+    const ar = document.documentElement.getAttribute("lang") === "ar";
+    const p = JAMA_PRICING[m.floors];
+    const field = (name) => form.querySelector(`[name="${name}"]`);
+    const label = m.code + " — " + m.name.en;
+    if (sel) sel.value = label;
+    const type = field("Project type");
+    const res = type && type.querySelector('[data-i18n="opt.res"]');
+    if (res) res.selected = true;
+    const area = field("Approx. area (m2)");
+    const budget = field("Budget range");
+    if (area) area.value = m.special ? "" : p.area;
+    if (budget) budget.value = m.special ? "" : usd(p.area * p.rate) + " FOB";
+    const floors = m.floors === 1 ? (ar ? "طابق واحد" : "one floor") : (ar ? "طابقان" : "two floors");
+    const msg = field("Message");
+    if (msg) {
+      msg.value = m.special
+        ? (ar ? `أرغب بمعرفة سعر النموذج ${m.code} — ${m.name.ar} (${floors}).`
+              : `I'd like a price for model ${label} (${floors}).`)
+        : (ar ? `أنا مهتم بالنموذج ${m.code} — ${m.name.ar} (${floors}، ${p.area} م²، ${usd(p.area * p.rate)} FOB).`
+              : `I'm interested in model ${label} (${floors}, ${p.area} m², ${usd(p.area * p.rate)} FOB).`);
+    }
+    return true;
+  }
+
+  // home page buttons: fill the form in place and scroll to it
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("a[data-model]");
+    if (!a || !document.querySelector("#contact form")) return;
+    if (!fillContact(a.dataset.model)) return;
+    e.preventDefault();
+    // vertical scroll only (scrollIntoView can also shift the page sideways in RTL)
+    window.scrollTo({ top: document.getElementById("contact").getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
+  });
+
+  // arriving from the models page (index.html?model=001#contact)
+  let fromUrl = null;
+  try { fromUrl = new URLSearchParams(location.search).get("model"); } catch (e) {}
+  if (fromUrl) {
+    // after the language engine has applied the saved language
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => fillContact(fromUrl));
+    else fillContact(fromUrl);
   }
 
   document.querySelectorAll("[data-models-count]").forEach((el) => { el.textContent = JAMA_MODELS.length; });
