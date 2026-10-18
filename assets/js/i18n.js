@@ -14,6 +14,7 @@ const AR = {
   "nav.home": "الرئيسية",
   "nav.models": "النماذج",
   "nav.gallery": "المعرض",
+  "nav.finishes": "الكسوة الخارجية",
   "nav.custom": "تصميم مخصّص",
   "nav.applications": "الاستخدامات",
   "nav.process": "كيف نعمل",
@@ -47,6 +48,38 @@ const AR = {
   "film.v2.d": "ألواح جدارية جاهزة تُرفَع إلى مكانها وتُجمَّع في الموقع.",
   "film.v3.t": "من الموقع إلى المنزل",
   "film.v3.d": "شاهد الألواح الجاهزة تتحوّل إلى منزل عائلي متكامل.",
+
+  /* finishes (home teaser + finishes.html) */
+  "fin.meta.title": "مجموعة الكسوة الخارجية | جاما",
+  "fin.meta.desc": "اكتشف أكثر من ٨٠ نوعاً من ألواح الكسوة المعزولة لواجهات منازل جاما الجاهزة — طوب، حجر، رخام، خشب وألوان عصرية ملساء.",
+  "fin.eyebrow": "ألواح جاما المعزولة",
+  "fin.h1": "مجموعة الكسوة الخارجية",
+  "fin.sub": "اختر مظهر منزلك من أكثر من ٨٠ نوعاً من ألواح الكسوة المعزولة — طوب، حجر، رخام، خشب وألوان عصرية ملساء.",
+  "fin.stat1": "نوعاً",
+  "fin.stat2": "مجموعات",
+  "fin.stat3": "قلب عازل",
+  "fin.pt1.t": "ألواح عازلة متعددة الطبقات",
+  "fin.pt1.p": "وجه معدني مزخرف ملتصق بقلب عازل — خيار عصري لعزل الجدران الخارجية.",
+  "fin.pt2.t": "جاهزة من المصنع",
+  "fin.pt2.p": "تصل الألواح بلونها وملمسها النهائي، فتوفّر عليك وقت وتكلفة أعمال الدهان في الموقع.",
+  "fin.pt3.t": "نسّق كما تحب",
+  "fin.pt3.p": "ادمج أكثر من نوع للجدران الرئيسية والتفاصيل والإطارات — وفريقنا يساعدك في الاختيار.",
+  "fin.note": "قد تختلف الألوان على الشاشة قليلاً عن الألواح الحقيقية. تواصل معنا لتأكيد اختيارك قبل الطلب.",
+  "fin.cta.t": "وجدت المظهر الذي يعجبك؟",
+  "fin.cta.p": "أرسل لنا رمز اللوح وسنضيفه إلى عرض سعر مشروعك.",
+  "fin.request": "اطلب هذا اللوح",
+  "fin.close": "إغلاق",
+  "fin.back": "العودة للرئيسية",
+  "fin.prev": "اللوح السابق",
+  "fin.next": "اللوح التالي",
+  "fin.home.p": "طوب، حجر، رخام، خشب وألوان عصرية — أكثر من ٨٠ نوعاً من ألواح الكسوة المعزولة لتختار منها مظهر منزلك.",
+  "fin.home.cta": "استكشف كل أنواع الكسوة",
+  "fin.home.s1": "الطوب الكلاسيكي",
+  "fin.home.s2": "حجر ورخام",
+  "fin.home.s3": "عروق الخشب",
+  "fin.home.s4": "طوب بلونين",
+  "fin.home.s5": "المموّج",
+  "fin.home.n": "أنواع",
 
   /* intro */
   "intro.eyebrow": "مقاربة جديدة",
@@ -309,7 +342,8 @@ const AR = {
   function snapshot() {
     EN = {};
     document.querySelectorAll("[data-i18n]").forEach((el) => {
-      EN[el.getAttribute("data-i18n")] = el.innerHTML;
+      // <title> is plain text: innerHTML would turn "&" into a visible "&amp;"
+      EN[el.getAttribute("data-i18n")] = el.tagName === "TITLE" ? el.textContent : el.innerHTML;
     });
     document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
       EN["ph:" + el.getAttribute("data-i18n-ph")] = el.getAttribute("placeholder") || "";
@@ -341,8 +375,9 @@ const AR = {
     });
 
     // meta
-    const t = ar ? AR["meta.title"] : EN["meta.title"];
-    const d = ar ? AR["meta.desc"] : EN["meta.desc"];
+    const mk = html.getAttribute("data-meta") || "meta"; // other pages set their own meta keys
+    const t = ar ? AR[mk + ".title"] : EN[mk + ".title"];
+    const d = ar ? AR[mk + ".desc"] : EN[mk + ".desc"];
     if (t) document.title = t;
     const md = document.querySelector('meta[name="description"]');
     if (md && d) md.setAttribute("content", d);

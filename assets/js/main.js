@@ -292,6 +292,19 @@
     syncCaption();
   });
 
+  /* ---- Contact: pre-fill the message when coming from a chosen finish ---- */
+  (function () {
+    let finish = null;
+    try { finish = new URLSearchParams(location.search).get("finish"); } catch (e) {}
+    const msg = $('#contact textarea[name="Message"]');
+    if (!finish || !msg) return;
+    // runs after the language engine has applied the saved language
+    document.addEventListener("DOMContentLoaded", () => {
+      const ar = document.documentElement.getAttribute("lang") === "ar";
+      msg.value = (ar ? "أنا مهتم بلوح الكسوة: " : "I'm interested in the façade finish: ") + finish;
+    });
+  })();
+
   /* ---- Footer year ------------------------------------------------------- */
   const yr = $("#year"); if (yr) yr.textContent = new Date().getFullYear();
 })();
