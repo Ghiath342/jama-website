@@ -20,7 +20,7 @@ const JAMA_MODELS = [
   { code: "003", img: "assets/img/models/m03.jpg", floors: 2, home: true, name: { en: "White Cottage with Green Roof", ar: "كوخ أبيض بسقف أخضر" } },
   { code: "004", img: "assets/img/models/m04.jpg", floors: 2, home: true, name: { en: "Two-Tone Family House with Porch", ar: "منزل عائلي بلونين مع مدخل مسقوف" } },
   { code: "005", img: "assets/img/models/m05.jpg", floors: 2, home: true, name: { en: "Red House with Wooden Balcony", ar: "منزل أحمر بشرفة خشبية" } },
-  { code: "006", img: "assets/img/models/m06.jpg", floors: 2, name: { en: "Stone-Base House with Balcony", ar: "منزل بقاعدة حجرية وشرفة" } },
+  { code: "006", img: "assets/img/models/m06.jpg", floors: 2, home: true, name: { en: "Stone-Base House with Balcony", ar: "منزل بقاعدة حجرية وشرفة" } },
   { code: "007", img: "assets/img/models/m07.jpg", floors: 1, name: { en: "Wood-Look Single-Storey Cabin", ar: "كابينة طابق واحد بمظهر خشبي" } },
   { code: "008", img: "assets/img/models/m08.jpg", floors: 1, name: { en: "Compact White Units", ar: "وحدات بيضاء مدمجة" } },
   { code: "009", img: "assets/img/models/m09.jpg", floors: 2, name: { en: "Villa with Arched Windows", ar: "فيلا بنوافذ مقوّسة" } },
@@ -83,9 +83,9 @@ const JAMA_MODELS = [
       </article>`;
   }
 
-  // home page: selected models first, before the custom-design card
+  // home page: the selected models
   const homeGrid = document.querySelector("#models .model-grid");
-  if (homeGrid) homeGrid.insertAdjacentHTML("afterbegin", JAMA_MODELS.filter((m) => m.home).map((m) => card(m, true)).join(""));
+  if (homeGrid) homeGrid.insertAdjacentHTML("beforeend", JAMA_MODELS.filter((m) => m.home).map((m) => card(m, true)).join(""));
 
   // models page: every model
   const pageGrid = document.getElementById("all-models");
