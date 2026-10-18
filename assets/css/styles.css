@@ -478,6 +478,7 @@ html[dir="rtl"] .wall-layer:hover { transform: translateX(-6px); }
 .label--viz { background: rgba(167,123,79,.94); }
 .label--dev { background: rgba(47,111,176,.94); } /* visible blue instead of dark grey */
 .label--done { background: rgba(37,120,80,.94); }
+.label--ref { background: rgba(92,100,112,.94); }
 
 /* ---- Inspiration marquee (two auto-scrolling rows) ----------------------- */
 /* keep the marquee left-to-right in both languages so the scroll fills correctly (RTL was leaving a gap) */
@@ -487,7 +488,7 @@ html[dir="rtl"] .wall-layer:hover { transform: translateX(-6px); }
   -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
 }
-.marquee-track { display: flex; gap: 18px; width: max-content; will-change: transform; animation: marquee 32s linear infinite; }
+.marquee-track { display: flex; gap: 18px; width: max-content; will-change: transform; animation: marquee 90s linear infinite; }
 .marquee-row.reverse .marquee-track { animation-direction: reverse; }
 .marquee-row:hover .marquee-track { animation-play-state: paused; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
