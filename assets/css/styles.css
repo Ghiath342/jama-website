@@ -151,12 +151,15 @@ html[dir="rtl"] .link-arrow .chev { transform: scaleX(-1); }
 .site-header.scrolled { background: rgba(255,255,255,.82); -webkit-backdrop-filter: saturate(170%) blur(20px); backdrop-filter: saturate(170%) blur(20px); box-shadow: 0 1px 0 var(--line), var(--shadow-md); height: 70px; }
 
 .brand { display: inline-flex; align-items: center; flex-shrink: 0; }
-.brand .logo-badge { background: #fff; border-radius: 12px; padding: 7px 13px; display: inline-flex; box-shadow: 0 4px 18px rgba(10,37,64,.20); transition: padding .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease); }
-.brand:hover .logo-badge { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(10,37,64,.26); }
-.brand .logo-img { display: block; height: 48px; width: auto; }
-.scrolled .brand .logo-badge { padding: 6px 11px; }
-.scrolled .brand .logo-img { height: 42px; }
-.site-footer .brand .logo-img { height: 64px; }
+.brand .logo-badge { display: inline-flex; transition: padding .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease); }
+.brand:hover .logo-badge { transform: translateY(-1px); }
+.brand .logo-img { display: block; height: 54px; width: auto; }
+/* transparent logo: light version over the dark hero and footer, full colour once the header turns white */
+.brand .logo-img--light { filter: drop-shadow(0 2px 8px rgba(0,0,0,.35)); }
+.brand .logo-img--dark, .scrolled .brand .logo-img--light { display: none; }
+.scrolled .brand .logo-img--dark { display: block; }
+.scrolled .brand .logo-img { height: 46px; }
+.site-footer .brand .logo-img { height: 72px; }
 .wordmark { font-weight: 800; font-size: 1.5rem; letter-spacing: 0.22em; color: #fff; transition: color .35s; }
 .wordmark .dot { color: var(--bronze); }
 .scrolled .wordmark { color: var(--navy-deep); }
@@ -782,7 +785,7 @@ html[dir="rtl"] .modal__panel { animation-name: slideInRtl; }
 }
 @media (max-width: 1040px) {
   :root { --header-h: 74px; }
-  .brand .logo-img { height: 42px; }
+  .brand .logo-img { height: 46px; }
   .split, .custom-grid, .quality-grid, .contact-grid { grid-template-columns: 1fr; }
   .custom-visual { max-width: 460px; }
   .footer-top { grid-template-columns: 1fr 1fr; gap: 30px; }
