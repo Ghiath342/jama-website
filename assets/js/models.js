@@ -11,7 +11,7 @@
      video  : optional — plays first in the details window
      photos : optional — extra pictures for the details window (layouts, interiors…)
      special: true → "Special" filter, no fixed price ("Request a price from JAMA")
-     home   : true → also shown in the home page "Models" section
+   Models with a video are listed first; the home page shows the first six.
    ========================================================================== */
 const JAMA_PRICING = {
   1: { area: 140, rate: 236 }, // one floor:  140 m² × $236 = $33,040
@@ -19,12 +19,12 @@ const JAMA_PRICING = {
 };
 
 const JAMA_MODELS = [
-  { code: "001", img: "assets/img/models/m01.jpg", floors: 1, home: true, video: "assets/video/model-001.mp4", photos: ["assets/img/models/m01-layout.jpg"], name: { en: "Single-Storey Twin-Gable House", ar: "منزل طابق واحد بواجهتين مثلثتين" } },
-  { code: "002", img: "assets/img/models/m02.jpg", floors: 2, home: true, area: 180, rate: 236, video: "assets/video/model-002.mp4", name: { en: "Two Floors Modern Luxury Villa", ar: "فيلا فاخرة عصرية بطابقين" } },
-  { code: "003", img: "assets/img/models/m03.jpg", floors: 2, home: true, name: { en: "White Cottage with Green Roof", ar: "كوخ أبيض بسقف أخضر" } },
-  { code: "004", img: "assets/img/models/m04.jpg", floors: 2, home: true, name: { en: "Two-Tone Family House with Porch", ar: "منزل عائلي بلونين مع مدخل مسقوف" } },
-  { code: "005", img: "assets/img/models/m05.jpg", floors: 2, home: true, name: { en: "Red House with Wooden Balcony", ar: "منزل أحمر بشرفة خشبية" } },
-  { code: "006", img: "assets/img/models/m06.jpg", floors: 2, home: true, name: { en: "Stone-Base House with Balcony", ar: "منزل بقاعدة حجرية وشرفة" } },
+  { code: "001", img: "assets/img/models/m01.jpg", floors: 1, video: "assets/video/model-001.mp4", photos: ["assets/img/models/m01-layout.jpg"], name: { en: "Single-Storey Twin-Gable House", ar: "منزل طابق واحد بواجهتين مثلثتين" } },
+  { code: "002", img: "assets/img/models/m02.jpg", floors: 2, area: 180, rate: 236, video: "assets/video/model-002.mp4", name: { en: "Two Floors Modern Luxury Villa", ar: "فيلا فاخرة عصرية بطابقين" } },
+  { code: "003", img: "assets/img/models/m03.jpg", floors: 2, name: { en: "White Cottage with Green Roof", ar: "كوخ أبيض بسقف أخضر" } },
+  { code: "004", img: "assets/img/models/m04.jpg", floors: 2, name: { en: "Two-Tone Family House with Porch", ar: "منزل عائلي بلونين مع مدخل مسقوف" } },
+  { code: "005", img: "assets/img/models/m05.jpg", floors: 2, name: { en: "Red House with Wooden Balcony", ar: "منزل أحمر بشرفة خشبية" } },
+  { code: "006", img: "assets/img/models/m06.jpg", floors: 2, name: { en: "Stone-Base House with Balcony", ar: "منزل بقاعدة حجرية وشرفة" } },
   { code: "007", img: "assets/img/models/m07.jpg", floors: 1, name: { en: "Wood-Look Single-Storey Cabin", ar: "كابينة طابق واحد بمظهر خشبي" } },
   { code: "008", img: "assets/img/models/m08.jpg", floors: 1, name: { en: "Compact White Units", ar: "وحدات بيضاء مدمجة" } },
   { code: "009", img: "assets/img/models/m09.jpg", floors: 2, name: { en: "Villa with Arched Windows", ar: "فيلا بنوافذ مقوّسة" } },
@@ -39,6 +39,7 @@ const JAMA_MODELS = [
   { code: "018", img: "assets/img/models/m18.jpg", floors: 2, name: { en: "Narrow Villa with Stone Base", ar: "فيلا ضيقة بقاعدة حجرية" } },
   { code: "019", img: "assets/img/models/m19.jpg", floors: 2, video: "assets/video/model-019.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
   { code: "020", img: "assets/img/models/m20.jpg", floors: 2, video: "assets/video/model-020.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
+  { code: "021", img: "assets/img/models/m21.jpg", floors: 2, video: "assets/video/model-021.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
 ];
 
 (function () {
@@ -47,10 +48,13 @@ const JAMA_MODELS = [
   // both languages are rendered; CSS shows the one matching <html lang>
   const both = (en, ar) => `<span class="t-en">${esc(en)}</span><span class="t-ar">${esc(ar)}</span>`;
   const usd = (n) => "$" + n.toLocaleString("en-US");
+  const FOB_TAG = `<span class="mdl-fob">${both("FOB", "FOB (أرض المعمل)")}</span>`;
   const ICON_AREA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>';
   const ICON_FLOORS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10M5 15h14"/></svg>';
   const ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
   const onHomePage = !!document.querySelector("#contact form");
+  // houses with a video first, otherwise in code order (sort is stable)
+  const ORDERED = JAMA_MODELS.slice().sort((a, b) => (b.video ? 1 : 0) - (a.video ? 1 : 0));
 
   // area, rate and total for a model (own values win over the floor default)
   const priceOf = (m) => {
@@ -68,7 +72,7 @@ const JAMA_MODELS = [
       : `<div class="mdl-price">
             <span class="mdl-label">${both("Price", "السعر")}</span>
             <b dir="ltr">${usd(p.total)}</b>
-            <span class="mdl-fob" title="FOB — ex-factory price, excluding tax, shipping and customs">FOB</span>
+            ${FOB_TAG}
           </div>
           <div class="mdl-rate" dir="ltr">${p.area} m² × ${usd(p.rate)} / m²</div>`;
     return `
@@ -93,13 +97,13 @@ const JAMA_MODELS = [
       </article>`;
   }
 
-  // home page: the selected models
+  // home page: the first six (video houses lead)
   const homeGrid = document.querySelector("#models .model-grid");
-  if (homeGrid) homeGrid.insertAdjacentHTML("beforeend", JAMA_MODELS.filter((m) => m.home).map((m) => card(m, true)).join(""));
+  if (homeGrid) homeGrid.insertAdjacentHTML("beforeend", ORDERED.slice(0, 6).map((m) => card(m, true)).join(""));
 
   // models page: every model
   const pageGrid = document.getElementById("all-models");
-  if (pageGrid) pageGrid.innerHTML = JAMA_MODELS.map((m) => card(m, false)).join("");
+  if (pageGrid) pageGrid.innerHTML = ORDERED.map((m) => card(m, false)).join("");
 
   /* ---- Details window: video or photo + a table of the house's details --- */
   const modal = document.createElement("div");
@@ -126,10 +130,6 @@ const JAMA_MODELS = [
           <button type="button" class="mdl-thumb${i === 0 ? " active" : ""}" data-media="${i}" aria-label="${it.video ? "Video" : "Photo " + i}">
             <img src="${esc(it.poster || it.img)}" alt="" />${it.video ? `<span class="mdl-thumb__play">${ICON_PLAY}</span>` : ""}
           </button>`).join("")}</div>`;
-    const photoCount = items.filter((it) => it.img).length;
-    const mediaLabel = m.video
-      ? both(photoCount > 1 ? `Video & ${photoCount} photos` : "Photo & video", photoCount > 1 ? `فيديو و${photoCount} صور` : "صورة وفيديو")
-      : both(photoCount > 1 ? `${photoCount} photos` : "Photo", photoCount > 1 ? `${photoCount} صور` : "صورة");
     const rows = [
       row("Model code", "رمز النموذج", `<span dir="ltr">${m.code}</span>`),
       row("Type", "النوع", floorsLabel(m)),
@@ -137,12 +137,7 @@ const JAMA_MODELS = [
       m.special ? "" : row("Price per m²", "السعر للمتر المربع", `<span dir="ltr">${usd(p.rate)}</span>`),
       row("Total price", "السعر الإجمالي", m.special
         ? both("Request a price from JAMA", "اطلب السعر من جاما")
-        : `<b dir="ltr">${usd(p.total)}</b> <span class="mdl-fob">FOB</span>`),
-      row("Price terms", "شروط السعر", both("Ex-factory (FOB) — excludes tax, shipping and customs clearance",
-                                            "سعر أرض المعمل (FOB) — لا يشمل الضريبة ولا الشحن ولا التخليص الجمركي")),
-      row("Structure", "الهيكل", both("Prefabricated galvanised steel frame", "هيكل فولاذي مجلفن مسبق الصنع")),
-      row("Walls", "الجدران", both("Insulated exterior cladding panels", "ألواح كسوة خارجية معزولة")),
-      row("Media", "الوسائط", mediaLabel),
+        : `<b dir="ltr">${usd(p.total)}</b> ${FOB_TAG}`),
     ].join("");
     panel.innerHTML = `
       <button type="button" class="mdl-modal__close" aria-label="Close">✕</button>
@@ -219,14 +214,14 @@ const JAMA_MODELS = [
     const area = field("Approx. area (m2)");
     const budget = field("Budget range");
     if (area) area.value = m.special ? "" : p.area;
-    if (budget) budget.value = m.special ? "" : usd(p.total) + " FOB";
+    if (budget) budget.value = m.special ? "" : usd(p.total) + (ar ? " FOB (أرض المعمل)" : " FOB");
     const floors = m.floors === 1 ? (ar ? "طابق واحد" : "one floor") : (ar ? "طابقان" : "two floors");
     const msg = field("Message");
     if (msg) {
       msg.value = m.special
         ? (ar ? `أرغب بمعرفة سعر النموذج ${m.code} — ${m.name.ar} (${floors}).`
               : `I'd like a price for model ${label} (${floors}).`)
-        : (ar ? `أنا مهتم بالنموذج ${m.code} — ${m.name.ar} (${floors}، ${p.area} م²، ${usd(p.total)} FOB).`
+        : (ar ? `أنا مهتم بالنموذج ${m.code} — ${m.name.ar} (${floors}، ${p.area} م²، ${usd(p.total)} FOB (أرض المعمل)).`
               : `I'm interested in model ${label} (${floors}, ${p.area} m², ${usd(p.total)} FOB).`);
     }
     return true;

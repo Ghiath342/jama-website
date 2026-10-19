@@ -1298,3 +1298,6 @@ button.model-card__img { display: block; width: 100%; padding: 0; border: 0; cur
   .mdl-stage { aspect-ratio: 16 / 10; flex: none; }
   .mdl-modal__body { padding: 20px 18px 20px; }
 }
+
+/* Arabic FOB tag: "FOB (أرض المعمل)" — no letter spacing so the Arabic letters stay joined */
+html[lang="ar"] .mdl-fob { letter-spacing: 0; font-size: .74rem; white-space: nowrap; }
