@@ -24,7 +24,7 @@ const JAMA_MODELS = [
   { code: "003", img: "assets/img/models/m19.jpg", floors: 2, video: "assets/video/model-003.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
   { code: "004", img: "assets/img/models/m20.jpg", floors: 2, video: "assets/video/model-004.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
   { code: "005", img: "assets/img/models/m21.jpg", floors: 2, video: "assets/video/model-005.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
-  { code: "006", img: "assets/img/models/m03.jpg", floors: 2, name: { en: "White Cottage with Green Roof", ar: "كوخ أبيض بسقف أخضر" } },
+  { code: "006", img: "assets/img/models/m16.jpg", floors: 2, name: { en: "Cream Villa with Terraces", ar: "فيلا كريمية بتراسات" } },
   { code: "007", img: "assets/img/models/m04.jpg", floors: 2, name: { en: "Two-Tone Family House with Porch", ar: "منزل عائلي بلونين مع مدخل مسقوف" } },
   { code: "008", img: "assets/img/models/m05.jpg", floors: 2, name: { en: "Red House with Wooden Balcony", ar: "منزل أحمر بشرفة خشبية" } },
   { code: "009", img: "assets/img/models/m06.jpg", floors: 2, name: { en: "Stone-Base House with Balcony", ar: "منزل بقاعدة حجرية وشرفة" } },
@@ -37,7 +37,7 @@ const JAMA_MODELS = [
   { code: "016", img: "assets/img/models/m13.jpg", floors: 1, name: { en: "Red-Roof Cottage with Arches", ar: "كوخ بسقف أحمر وأقواس" } },
   { code: "017", img: "assets/img/models/m14.jpg", floors: 1, name: { en: "Stone & Wood House with Dormers", ar: "منزل حجري وخشبي بنوافذ سقفية" } },
   { code: "018", img: "assets/img/models/m15.jpg", floors: 2, name: { en: "Orange Villa with Bay Windows", ar: "فيلا برتقالية بنوافذ بارزة" } },
-  { code: "019", img: "assets/img/models/m16.jpg", floors: 2, name: { en: "Cream Villa with Terraces", ar: "فيلا كريمية بتراسات" } },
+  { code: "019", img: "assets/img/models/m03.jpg", floors: 2, name: { en: "White Cottage with Green Roof", ar: "كوخ أبيض بسقف أخضر" } },
   { code: "020", img: "assets/img/models/m17.jpg", floors: 2, name: { en: "Red-Roof Villa with Balcony", ar: "فيلا بسقف أحمر وشرفة" } },
   { code: "021", img: "assets/img/models/m18.jpg", floors: 2, name: { en: "Narrow Villa with Stone Base", ar: "فيلا ضيقة بقاعدة حجرية" } },
 ];
