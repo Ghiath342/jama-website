@@ -10,7 +10,7 @@
      rate   : optional — own price per m² in $ (overrides the floor default)
      video  : optional — plays first in the details window
      photos : optional — extra pictures for the details window (layouts, interiors…)
-     special: true → "Special" filter, no fixed price ("Request a price from JAMA")
+     special: true → no fixed price ("Request a price from JAMA")
    Models with a video are listed first; the home page shows the first six.
    ========================================================================== */
 const JAMA_PRICING = {
@@ -25,21 +25,21 @@ const JAMA_MODELS = [
   { code: "004", img: "assets/img/models/m20.jpg", floors: 2, video: "assets/video/model-004.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
   { code: "005", img: "assets/img/models/m21.jpg", floors: 2, video: "assets/video/model-005.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
   { code: "006", img: "assets/img/models/m16.jpg", floors: 2, name: { en: "Cream Villa with Terraces", ar: "فيلا كريمية بتراسات" } },
-  { code: "007", img: "assets/img/models/m04.jpg", floors: 2, name: { en: "Two-Tone Family House with Porch", ar: "منزل عائلي بلونين مع مدخل مسقوف" } },
-  { code: "008", img: "assets/img/models/m05.jpg", floors: 2, name: { en: "Red House with Wooden Balcony", ar: "منزل أحمر بشرفة خشبية" } },
-  { code: "009", img: "assets/img/models/m06.jpg", floors: 2, name: { en: "Stone-Base House with Balcony", ar: "منزل بقاعدة حجرية وشرفة" } },
-  { code: "010", img: "assets/img/models/m07.jpg", floors: 1, name: { en: "Wood-Look Single-Storey Cabin", ar: "كابينة طابق واحد بمظهر خشبي" } },
-  { code: "011", img: "assets/img/models/m08.jpg", floors: 1, name: { en: "Compact White Units", ar: "وحدات بيضاء مدمجة" } },
-  { code: "012", img: "assets/img/models/m09.jpg", floors: 2, name: { en: "Villa with Arched Windows", ar: "فيلا بنوافذ مقوّسة" } },
-  { code: "013", img: "assets/img/models/m10.jpg", floors: 2, name: { en: "Coral House with Long Balcony", ar: "منزل مرجاني بشرفة طويلة" } },
-  { code: "014", img: "assets/img/models/m11.jpg", floors: 1, name: { en: "Yellow Bungalow with Front Porch", ar: "بنغل أصفر بشرفة أمامية" } },
-  { code: "015", img: "assets/img/models/m12.jpg", floors: 2, name: { en: "White Villa on Stone Base", ar: "فيلا بيضاء على قاعدة حجرية" } },
-  { code: "016", img: "assets/img/models/m13.jpg", floors: 1, name: { en: "Red-Roof Cottage with Arches", ar: "كوخ بسقف أحمر وأقواس" } },
-  { code: "017", img: "assets/img/models/m14.jpg", floors: 1, name: { en: "Stone & Wood House with Dormers", ar: "منزل حجري وخشبي بنوافذ سقفية" } },
-  { code: "018", img: "assets/img/models/m15.jpg", floors: 2, name: { en: "Orange Villa with Bay Windows", ar: "فيلا برتقالية بنوافذ بارزة" } },
-  { code: "019", img: "assets/img/models/m03.jpg", floors: 2, name: { en: "White Cottage with Green Roof", ar: "كوخ أبيض بسقف أخضر" } },
-  { code: "020", img: "assets/img/models/m17.jpg", floors: 2, name: { en: "Red-Roof Villa with Balcony", ar: "فيلا بسقف أحمر وشرفة" } },
-  { code: "021", img: "assets/img/models/m18.jpg", floors: 2, name: { en: "Narrow Villa with Stone Base", ar: "فيلا ضيقة بقاعدة حجرية" } },
+  { code: "007", img: "assets/img/models/m04.jpg", floors: 2, special: true, name: { en: "Two-Tone Family House with Porch", ar: "منزل عائلي بلونين مع مدخل مسقوف" } },
+  { code: "008", img: "assets/img/models/m05.jpg", floors: 2, special: true, name: { en: "Red House with Wooden Balcony", ar: "منزل أحمر بشرفة خشبية" } },
+  { code: "009", img: "assets/img/models/m06.jpg", floors: 2, special: true, name: { en: "Stone-Base House with Balcony", ar: "منزل بقاعدة حجرية وشرفة" } },
+  { code: "010", img: "assets/img/models/m07.jpg", floors: 1, special: true, name: { en: "Wood-Look Single-Storey Cabin", ar: "كابينة طابق واحد بمظهر خشبي" } },
+  { code: "011", img: "assets/img/models/m08.jpg", floors: 1, special: true, name: { en: "Compact White Units", ar: "وحدات بيضاء مدمجة" } },
+  { code: "012", img: "assets/img/models/m09.jpg", floors: 2, special: true, name: { en: "Villa with Arched Windows", ar: "فيلا بنوافذ مقوّسة" } },
+  { code: "013", img: "assets/img/models/m10.jpg", floors: 2, special: true, name: { en: "Coral House with Long Balcony", ar: "منزل مرجاني بشرفة طويلة" } },
+  { code: "014", img: "assets/img/models/m11.jpg", floors: 1, special: true, name: { en: "Yellow Bungalow with Front Porch", ar: "بنغل أصفر بشرفة أمامية" } },
+  { code: "015", img: "assets/img/models/m12.jpg", floors: 2, special: true, name: { en: "White Villa on Stone Base", ar: "فيلا بيضاء على قاعدة حجرية" } },
+  { code: "016", img: "assets/img/models/m13.jpg", floors: 1, special: true, name: { en: "Red-Roof Cottage with Arches", ar: "كوخ بسقف أحمر وأقواس" } },
+  { code: "017", img: "assets/img/models/m14.jpg", floors: 1, special: true, name: { en: "Stone & Wood House with Dormers", ar: "منزل حجري وخشبي بنوافذ سقفية" } },
+  { code: "018", img: "assets/img/models/m15.jpg", floors: 2, special: true, name: { en: "Orange Villa with Bay Windows", ar: "فيلا برتقالية بنوافذ بارزة" } },
+  { code: "019", img: "assets/img/models/m03.jpg", floors: 2, special: true, name: { en: "White Cottage with Green Roof", ar: "كوخ أبيض بسقف أخضر" } },
+  { code: "020", img: "assets/img/models/m17.jpg", floors: 2, special: true, name: { en: "Red-Roof Villa with Balcony", ar: "فيلا بسقف أحمر وشرفة" } },
+  { code: "021", img: "assets/img/models/m18.jpg", floors: 2, special: true, name: { en: "Narrow Villa with Stone Base", ar: "فيلا ضيقة بقاعدة حجرية" } },
 ];
 
 (function () {
