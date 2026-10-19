@@ -97,7 +97,6 @@ const AR = {
   "filter.all": "الكل",
   "filter.one": "طابق واحد",
   "filter.two": "طابقان",
-  "filter.special": "خاص",
 
   "spec.area": "المساحة",
   "spec.bed": "غرف نوم",

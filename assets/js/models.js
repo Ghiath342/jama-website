@@ -1,11 +1,15 @@
 /* ==========================================================================
    JAMA — Models catalogue (models.html + the home page "Models" section)
    --------------------------------------------------------------------------
-   Two building options; area and FOB price come from PRICING by floor count.
-   FOB = ex-factory price: no tax, shipping or customs clearance.
+   Area and FOB price come from JAMA_PRICING by floor count, unless a model
+   sets its own. FOB = ex-factory price: no tax, shipping or customs clearance.
      code   : catalogue number shown on the card ("001")
      floors : 1 or 2
-     name   : short description of the picture { en, ar }
+     name   : short description of the house { en, ar }
+     area   : optional — own area in m² (overrides the floor default)
+     rate   : optional — own price per m² in $ (overrides the floor default)
+     video  : optional — plays first in the details window
+     photos : optional — extra pictures for the details window (layouts, interiors…)
      special: true → "Special" filter, no fixed price ("Request a price from JAMA")
      home   : true → also shown in the home page "Models" section
    ========================================================================== */
@@ -15,8 +19,8 @@ const JAMA_PRICING = {
 };
 
 const JAMA_MODELS = [
-  { code: "001", img: "assets/img/models/m01.jpg", floors: 1, home: true, name: { en: "Single-Storey Twin-Gable House", ar: "منزل طابق واحد بواجهتين مثلثتين" } },
-  { code: "002", img: "assets/img/models/m02.jpg", floors: 2, home: true, special: true, name: { en: "Glass A-Frame Villa with Terrace", ar: "فيلا زجاجية بسقف مثلث وتراس" } },
+  { code: "001", img: "assets/img/models/m01.jpg", floors: 1, home: true, video: "assets/video/model-001.mp4", photos: ["assets/img/models/m01-layout.jpg"], name: { en: "Single-Storey Twin-Gable House", ar: "منزل طابق واحد بواجهتين مثلثتين" } },
+  { code: "002", img: "assets/img/models/m02.jpg", floors: 2, home: true, area: 180, rate: 236, video: "assets/video/model-002.mp4", name: { en: "Two Floors Modern Luxury Villa", ar: "فيلا فاخرة عصرية بطابقين" } },
   { code: "003", img: "assets/img/models/m03.jpg", floors: 2, home: true, name: { en: "White Cottage with Green Roof", ar: "كوخ أبيض بسقف أخضر" } },
   { code: "004", img: "assets/img/models/m04.jpg", floors: 2, home: true, name: { en: "Two-Tone Family House with Porch", ar: "منزل عائلي بلونين مع مدخل مسقوف" } },
   { code: "005", img: "assets/img/models/m05.jpg", floors: 2, home: true, name: { en: "Red House with Wooden Balcony", ar: "منزل أحمر بشرفة خشبية" } },
@@ -33,6 +37,8 @@ const JAMA_MODELS = [
   { code: "016", img: "assets/img/models/m16.jpg", floors: 2, name: { en: "Cream Villa with Terraces", ar: "فيلا كريمية بتراسات" } },
   { code: "017", img: "assets/img/models/m17.jpg", floors: 2, name: { en: "Red-Roof Villa with Balcony", ar: "فيلا بسقف أحمر وشرفة" } },
   { code: "018", img: "assets/img/models/m18.jpg", floors: 2, name: { en: "Narrow Villa with Stone Base", ar: "فيلا ضيقة بقاعدة حجرية" } },
+  { code: "019", img: "assets/img/models/m19.jpg", floors: 2, video: "assets/video/model-019.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
+  { code: "020", img: "assets/img/models/m20.jpg", floors: 2, video: "assets/video/model-020.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
 ];
 
 (function () {
@@ -43,34 +49,45 @@ const JAMA_MODELS = [
   const usd = (n) => "$" + n.toLocaleString("en-US");
   const ICON_AREA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>';
   const ICON_FLOORS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10M5 15h14"/></svg>';
+  const ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+  const onHomePage = !!document.querySelector("#contact form");
+
+  // area, rate and total for a model (own values win over the floor default)
+  const priceOf = (m) => {
+    const d = JAMA_PRICING[m.floors];
+    const area = m.area || d.area, rate = m.rate || d.rate;
+    return { area, rate, total: area * rate };
+  };
+  const floorsLabel = (m) => (m.floors === 1 ? both("One floor", "طابق واحد") : both("Two floors", "طابقان"));
+  const requestHref = (m) => (onHomePage ? "#contact" : "index.html?model=" + m.code + "#contact");
 
   function card(m, onHome) {
-    const p = JAMA_PRICING[m.floors];
-    const floors = m.floors === 1 ? both("One floor", "طابق واحد") : both("Two floors", "طابقان");
-    const request = onHome ? "#contact" : "index.html?model=" + m.code + "#contact";
+    const p = priceOf(m);
     const price = m.special
       ? `<div class="mdl-price mdl-price--quote"><b>${both("Request a price from JAMA", "اطلب السعر من جاما")}</b></div>`
       : `<div class="mdl-price">
             <span class="mdl-label">${both("Price", "السعر")}</span>
-            <b dir="ltr">${usd(p.area * p.rate)}</b>
+            <b dir="ltr">${usd(p.total)}</b>
             <span class="mdl-fob" title="FOB — ex-factory price, excluding tax, shipping and customs">FOB</span>
           </div>
           <div class="mdl-rate" dir="ltr">${p.area} m² × ${usd(p.rate)} / m²</div>`;
     return `
       <article class="model-card mdl-card reveal" data-cat="${m.floors === 1 ? "one-floor" : "two-floors"}${m.special ? " special" : ""}"${onHome ? "" : ` id="model-${m.code}"`}>
-        <a class="model-card__img" href="${esc(m.img)}" data-zoom>
+        <button type="button" class="model-card__img mdl-open" data-details="${m.code}" aria-label="${esc(m.name.en)} — details">
           <img src="${esc(m.img)}" loading="lazy" alt="${esc(m.name.en)}" />
           <span class="model-card__tag mdl-code" dir="ltr">${m.code}</span>
-        </a>
+          ${m.video ? `<span class="mdl-video-tag">${ICON_PLAY}${both("Video", "فيديو")}</span>` : ""}
+        </button>
         <div class="model-card__body">
           <h3>${both(m.name.en, m.name.ar)}</h3>
           <ul class="model-specs">
-            <li>${ICON_FLOORS}${floors}</li>
+            <li>${ICON_FLOORS}${floorsLabel(m)}</li>
             ${m.special ? "" : `<li>${ICON_AREA}<span dir="ltr">${p.area} m²</span></li>`}
           </ul>
           ${price}
           <div class="model-card__actions">
-            <a href="${request}" class="btn btn--primary btn--sm" data-model="${m.code}">${m.special ? both("Request Price", "اطلب السعر") : both("Request This Model", "اطلب هذا النموذج")}</a>
+            <button type="button" class="btn btn--navy btn--sm" data-details="${m.code}">${both("Details", "التفاصيل")}</button>
+            <a href="${requestHref(m)}" class="btn btn--primary btn--sm" data-model="${m.code}">${m.special ? both("Request Price", "اطلب السعر") : both("Request", "اطلب")}</a>
           </div>
         </div>
       </article>`;
@@ -83,6 +100,101 @@ const JAMA_MODELS = [
   // models page: every model
   const pageGrid = document.getElementById("all-models");
   if (pageGrid) pageGrid.innerHTML = JAMA_MODELS.map((m) => card(m, false)).join("");
+
+  /* ---- Details window: video or photo + a table of the house's details --- */
+  const modal = document.createElement("div");
+  modal.className = "mdl-modal";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  modal.innerHTML = '<div class="mdl-modal__backdrop"></div><div class="mdl-modal__panel"></div>';
+  document.body.appendChild(modal);
+  const panel = modal.querySelector(".mdl-modal__panel");
+
+  function row(en, ar, value) {
+    return `<tr><th>${both(en, ar)}</th><td>${value}</td></tr>`;
+  }
+
+  function openDetails(code) {
+    const m = JAMA_MODELS.find((x) => x.code === code);
+    if (!m) return;
+    const p = priceOf(m);
+    // video first (if any), then the main photo, then any extra photos
+    const items = [];
+    if (m.video) items.push({ video: m.video, poster: m.img });
+    [m.img].concat(m.photos || []).forEach((src) => items.push({ img: src }));
+    const thumbs = items.length < 2 ? "" : `<div class="mdl-thumbs">${items.map((it, i) => `
+          <button type="button" class="mdl-thumb${i === 0 ? " active" : ""}" data-media="${i}" aria-label="${it.video ? "Video" : "Photo " + i}">
+            <img src="${esc(it.poster || it.img)}" alt="" />${it.video ? `<span class="mdl-thumb__play">${ICON_PLAY}</span>` : ""}
+          </button>`).join("")}</div>`;
+    const photoCount = items.filter((it) => it.img).length;
+    const mediaLabel = m.video
+      ? both(photoCount > 1 ? `Video & ${photoCount} photos` : "Photo & video", photoCount > 1 ? `فيديو و${photoCount} صور` : "صورة وفيديو")
+      : both(photoCount > 1 ? `${photoCount} photos` : "Photo", photoCount > 1 ? `${photoCount} صور` : "صورة");
+    const rows = [
+      row("Model code", "رمز النموذج", `<span dir="ltr">${m.code}</span>`),
+      row("Type", "النوع", floorsLabel(m)),
+      m.special ? "" : row("Area", "المساحة", `<span dir="ltr">${p.area} m²</span>`),
+      m.special ? "" : row("Price per m²", "السعر للمتر المربع", `<span dir="ltr">${usd(p.rate)}</span>`),
+      row("Total price", "السعر الإجمالي", m.special
+        ? both("Request a price from JAMA", "اطلب السعر من جاما")
+        : `<b dir="ltr">${usd(p.total)}</b> <span class="mdl-fob">FOB</span>`),
+      row("Price terms", "شروط السعر", both("Ex-factory (FOB) — excludes tax, shipping and customs clearance",
+                                            "سعر أرض المعمل (FOB) — لا يشمل الضريبة ولا الشحن ولا التخليص الجمركي")),
+      row("Structure", "الهيكل", both("Prefabricated galvanised steel frame", "هيكل فولاذي مجلفن مسبق الصنع")),
+      row("Walls", "الجدران", both("Insulated exterior cladding panels", "ألواح كسوة خارجية معزولة")),
+      row("Media", "الوسائط", mediaLabel),
+    ].join("");
+    panel.innerHTML = `
+      <button type="button" class="mdl-modal__close" aria-label="Close">✕</button>
+      <div class="mdl-modal__media"><div class="mdl-stage"></div>${thumbs}</div>
+      <div class="mdl-modal__body">
+        <span class="mdl-modal__code" dir="ltr">${m.code}</span>
+        <h3>${both(m.name.en, m.name.ar)}</h3>
+        <table class="mdl-table"><tbody>${rows}</tbody></table>
+        <div class="mdl-modal__actions">
+          <a href="${requestHref(m)}" class="btn btn--primary" data-model="${m.code}">${m.special ? both("Request Price", "اطلب السعر") : both("Request This Model", "اطلب هذا النموذج")}</a>
+        </div>
+      </div>`;
+    showMedia(items, 0, m);
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+    panel.querySelector(".mdl-modal__close").focus();
+    if (!onHomePage) history.replaceState(null, "", "#model-" + m.code);
+  }
+
+  // show one item (video or photo) in the big stage and mark its thumbnail
+  let current = null;
+  function showMedia(items, i, m) {
+    if (m) current = { items, m };
+    const it = current.items[i];
+    const stage = panel.querySelector(".mdl-stage");
+    stage.innerHTML = it.video
+      ? `<video src="${esc(it.video)}" poster="${esc(it.poster)}" controls autoplay muted loop playsinline preload="metadata"></video>`
+      : `<img src="${esc(it.img)}" alt="${esc(current.m.name.en)}" />`;
+    panel.querySelectorAll(".mdl-thumb").forEach((b, j) => b.classList.toggle("active", j === i));
+  }
+
+  function closeDetails() {
+    if (!modal.classList.contains("open")) return;
+    const v = panel.querySelector("video");
+    if (v) v.pause();
+    modal.classList.remove("open");
+    document.body.style.overflow = "";
+    if (!onHomePage && location.hash.startsWith("#model-")) history.replaceState(null, "", location.pathname);
+  }
+
+  document.addEventListener("click", (e) => {
+    const opener = e.target.closest("[data-details]");
+    if (opener) { e.preventDefault(); openDetails(opener.dataset.details); return; }
+    const thumb = e.target.closest(".mdl-thumb");
+    if (thumb && current) { showMedia(current.items, +thumb.dataset.media); return; }
+    if (e.target.closest(".mdl-modal__close") || e.target.classList.contains("mdl-modal__backdrop")) closeDetails();
+  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDetails(); });
+
+  // models.html#model-002 opens that house's details
+  const hash = (location.hash.match(/^#model-(\d{3})$/) || [])[1];
+  if (hash) openDetails(hash);
 
   // contact form: list the catalogue in "Preferred model"
   const sel = document.getElementById("contact-model");
@@ -97,7 +209,7 @@ const JAMA_MODELS = [
     const form = document.querySelector("#contact form");
     if (!m || !form) return false;
     const ar = document.documentElement.getAttribute("lang") === "ar";
-    const p = JAMA_PRICING[m.floors];
+    const p = priceOf(m);
     const field = (name) => form.querySelector(`[name="${name}"]`);
     const label = m.code + " — " + m.name.en;
     if (sel) sel.value = label;
@@ -107,25 +219,26 @@ const JAMA_MODELS = [
     const area = field("Approx. area (m2)");
     const budget = field("Budget range");
     if (area) area.value = m.special ? "" : p.area;
-    if (budget) budget.value = m.special ? "" : usd(p.area * p.rate) + " FOB";
+    if (budget) budget.value = m.special ? "" : usd(p.total) + " FOB";
     const floors = m.floors === 1 ? (ar ? "طابق واحد" : "one floor") : (ar ? "طابقان" : "two floors");
     const msg = field("Message");
     if (msg) {
       msg.value = m.special
         ? (ar ? `أرغب بمعرفة سعر النموذج ${m.code} — ${m.name.ar} (${floors}).`
               : `I'd like a price for model ${label} (${floors}).`)
-        : (ar ? `أنا مهتم بالنموذج ${m.code} — ${m.name.ar} (${floors}، ${p.area} م²، ${usd(p.area * p.rate)} FOB).`
-              : `I'm interested in model ${label} (${floors}, ${p.area} m², ${usd(p.area * p.rate)} FOB).`);
+        : (ar ? `أنا مهتم بالنموذج ${m.code} — ${m.name.ar} (${floors}، ${p.area} م²، ${usd(p.total)} FOB).`
+              : `I'm interested in model ${label} (${floors}, ${p.area} m², ${usd(p.total)} FOB).`);
     }
     return true;
   }
 
-  // home page buttons: fill the form in place and scroll to it
+  // home page request buttons: fill the form in place and scroll to it
   document.addEventListener("click", (e) => {
     const a = e.target.closest("a[data-model]");
-    if (!a || !document.querySelector("#contact form")) return;
+    if (!a || !onHomePage) return;
     if (!fillContact(a.dataset.model)) return;
     e.preventDefault();
+    closeDetails();
     // vertical scroll only (scrollIntoView can also shift the page sideways in RTL)
     window.scrollTo({ top: document.getElementById("contact").getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
   });
