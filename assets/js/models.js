@@ -32,7 +32,7 @@ const JAMA_MODELS = [
   { code: "011", img: "assets/img/models/m08.jpg", floors: 1, special: true, name: { en: "Compact Units", ar: "وحدات مدمجة" } },
   { code: "012", img: "assets/img/models/m09.jpg", floors: 2, special: true, name: { en: "Two Floors Villa", ar: "فيلا بطابقين" } },
   { code: "013", img: "assets/img/models/m10.jpg", floors: 2, special: true, name: { en: "Two Floors House", ar: "منزل بطابقين" } },
-  { code: "014", img: "assets/img/models/m11.jpg", floors: 1, special: true, name: { en: "One Floor Bungalow", ar: "بنغل بطابق واحد" } },
+  { code: "014", img: "assets/img/models/m11.jpg", floors: 1, special: true, name: { en: "One Floor House", ar: "منزل بطابق واحد" } },
   { code: "015", img: "assets/img/models/m12.jpg", floors: 2, special: true, name: { en: "Two Floors Villa", ar: "فيلا بطابقين" } },
   { code: "016", img: "assets/img/models/m13.jpg", floors: 1, special: true, name: { en: "One Floor Cottage", ar: "كوخ بطابق واحد" } },
   { code: "017", img: "assets/img/models/m14.jpg", floors: 1, special: true, name: { en: "One Floor House", ar: "منزل بطابق واحد" } },
