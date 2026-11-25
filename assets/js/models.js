@@ -27,7 +27,7 @@ const JAMA_MODELS = [
   { code: "003", img: "assets/img/models/m24.jpg", floors: 2, special: true, name: { en: "Two Floors Villa", ar: "فيلا بطابقين" } },
   { code: "004", img: "assets/img/models/m20.jpg", floors: 2, video: "assets/video/model-004.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
   { code: "005", img: "assets/img/models/m21.jpg", floors: 2, video: "assets/video/model-005.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
-  { code: "006", img: "assets/img/models/m16.jpg", floors: 2, name: { en: "Two Floors Villa", ar: "فيلا بطابقين" } },
+  { code: "006", img: "assets/img/models/m25.jpg", floors: 2, special: true, name: { en: "Two Floors Villa", ar: "فيلا بطابقين" } },
   { code: "007", img: "assets/img/models/m04.jpg", floors: 2, special: true, name: { en: "Two Floors Family House", ar: "منزل عائلي بطابقين" } },
   { code: "008", img: "assets/img/models/m05.jpg", floors: 2, special: true, name: { en: "Two Floors House", ar: "منزل بطابقين" } },
   { code: "009", img: "assets/img/models/m06.jpg", floors: 2, special: true, name: { en: "Two Floors House", ar: "منزل بطابقين" } },
@@ -46,6 +46,7 @@ const JAMA_MODELS = [
   { code: "022", img: "assets/img/models/m01.jpg", floors: 1, video: "assets/video/model-022.mp4", photos: ["assets/img/models/m01-layout.jpg"], name: { en: "One Floor House", ar: "منزل بطابق واحد" } },
   { code: "023", img: "assets/img/models/m02.jpg", floors: 2, area: 180, rate: 236, video: "assets/video/model-023.mp4", name: { en: "Two Floors Modern Luxury Villa", ar: "فيلا فاخرة عصرية بطابقين" } },
   { code: "024", img: "assets/img/models/m19.jpg", floors: 2, video: "assets/video/model-024.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
+  { code: "025", img: "assets/img/models/m16.jpg", floors: 2, name: { en: "Two Floors Villa", ar: "فيلا بطابقين" } },
 ];
 
 (function () {
