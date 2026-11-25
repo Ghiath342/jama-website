@@ -4,14 +4,14 @@
    Area and FOB price come from JAMA_PRICING by floor count, unless a model
    sets its own. FOB = ex-factory price: no tax, shipping or customs clearance.
      code   : catalogue number shown on the card ("001")
-     floors : 1 or 2
+     floors : 1, 2, or 3+ (shown as "Multi-floor")
      name   : short description of the house { en, ar }
      area   : optional — own area in m² (overrides the floor default)
      rate   : optional — own price per m² in $ (overrides the floor default)
      video  : optional — plays first in the details window
      photos : optional — extra pictures for the details window (layouts, interiors…)
      special: true → no fixed price ("Request a price from JAMA")
-   Models with a video are listed first; the home page shows the first six.
+   Models are listed in code order; the home page shows the first six.
    ========================================================================== */
 // Prices are hidden for now. Set to true to show them again (cards, details window, contact form).
 const SHOW_PRICES = false;
@@ -22,9 +22,9 @@ const JAMA_PRICING = {
 };
 
 const JAMA_MODELS = [
-  { code: "001", img: "assets/img/models/m01.jpg", floors: 1, video: "assets/video/model-001.mp4", photos: ["assets/img/models/m01-layout.jpg"], name: { en: "One Floor House", ar: "منزل بطابق واحد" } },
-  { code: "002", img: "assets/img/models/m02.jpg", floors: 2, area: 180, rate: 236, video: "assets/video/model-002.mp4", name: { en: "Two Floors Modern Luxury Villa", ar: "فيلا فاخرة عصرية بطابقين" } },
-  { code: "003", img: "assets/img/models/m19.jpg", floors: 2, video: "assets/video/model-003.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
+  { code: "001", img: "assets/img/models/m22.jpg", floors: 2, special: true, name: { en: "Two Floors Villa", ar: "فيلا بطابقين" } },
+  { code: "002", img: "assets/img/models/m23.jpg", floors: 3, special: true, name: { en: "Multi-Floor Villa", ar: "فيلا متعددة الطوابق" } },
+  { code: "003", img: "assets/img/models/m24.jpg", floors: 2, special: true, name: { en: "Two Floors Villa", ar: "فيلا بطابقين" } },
   { code: "004", img: "assets/img/models/m20.jpg", floors: 2, video: "assets/video/model-004.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
   { code: "005", img: "assets/img/models/m21.jpg", floors: 2, video: "assets/video/model-005.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
   { code: "006", img: "assets/img/models/m16.jpg", floors: 2, name: { en: "Two Floors Villa", ar: "فيلا بطابقين" } },
@@ -43,6 +43,9 @@ const JAMA_MODELS = [
   { code: "019", img: "assets/img/models/m03.jpg", floors: 2, special: true, name: { en: "Two Floors Cottage", ar: "كوخ بطابقين" } },
   { code: "020", img: "assets/img/models/m17.jpg", floors: 2, special: true, name: { en: "Two Floors Villa", ar: "فيلا بطابقين" } },
   { code: "021", img: "assets/img/models/m18.jpg", floors: 2, special: true, name: { en: "Two Floors Villa", ar: "فيلا بطابقين" } },
+  { code: "022", img: "assets/img/models/m01.jpg", floors: 1, video: "assets/video/model-022.mp4", photos: ["assets/img/models/m01-layout.jpg"], name: { en: "One Floor House", ar: "منزل بطابق واحد" } },
+  { code: "023", img: "assets/img/models/m02.jpg", floors: 2, area: 180, rate: 236, video: "assets/video/model-023.mp4", name: { en: "Two Floors Modern Luxury Villa", ar: "فيلا فاخرة عصرية بطابقين" } },
+  { code: "024", img: "assets/img/models/m19.jpg", floors: 2, video: "assets/video/model-024.mp4", name: { en: "Two Floors Modern Villa", ar: "فيلا عصرية بطابقين" } },
 ];
 
 (function () {
@@ -56,16 +59,18 @@ const JAMA_MODELS = [
   const ICON_FLOORS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10M5 15h14"/></svg>';
   const ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
   const onHomePage = !!document.querySelector("#contact form");
-  // houses with a video first, otherwise in code order (sort is stable)
-  const ORDERED = JAMA_MODELS.slice().sort((a, b) => (b.video ? 1 : 0) - (a.video ? 1 : 0));
+  // listed in code order
+  const ORDERED = JAMA_MODELS.slice();
 
   // area, rate and total for a model (own values win over the floor default)
   const priceOf = (m) => {
-    const d = JAMA_PRICING[m.floors];
+    const d = JAMA_PRICING[m.floors] || {};
     const area = m.area || d.area, rate = m.rate || d.rate;
     return { area, rate, total: area * rate };
   };
-  const floorsLabel = (m) => (m.floors === 1 ? both("One floor", "طابق واحد") : both("Two floors", "طابقان"));
+  const floorsLabel = (m) => (m.floors === 1 ? both("One floor", "طابق واحد")
+    : m.floors === 2 ? both("Two floors", "طابقان") : both("Multi-floor", "متعددة الطوابق"));
+  const floorsCat = (m) => (m.floors === 1 ? "one-floor" : m.floors === 2 ? "two-floors" : "multi-floor");
   const requestHref = (m) => (onHomePage ? "#contact" : "index.html?model=" + m.code + "#contact");
 
   // a fixed price is shown only when prices are switched on and the model isn't "special"
@@ -85,7 +90,7 @@ const JAMA_MODELS = [
           </div>
           <div class="mdl-rate" dir="ltr">${p.area} m² × ${usd(p.rate)} / m²</div>`;
     return `
-      <article class="model-card mdl-card reveal" data-cat="${m.floors === 1 ? "one-floor" : "two-floors"}${m.special ? " special" : ""}"${onHome ? "" : ` id="model-${m.code}"`}>
+      <article class="model-card mdl-card reveal" data-cat="${floorsCat(m)}${m.special ? " special" : ""}"${onHome ? "" : ` id="model-${m.code}"`}>
         <button type="button" class="model-card__img mdl-open" data-details="${m.code}" aria-label="${esc(m.name.en)} — details">
           <img src="${esc(m.img)}" loading="lazy" alt="${esc(m.name.en)}" />
           <span class="model-card__tag mdl-code" dir="ltr">${m.code}</span>
@@ -224,7 +229,8 @@ const JAMA_MODELS = [
     const budget = field("Budget range");
     if (area) area.value = m.special ? "" : p.area;
     if (budget) budget.value = hasPrice(m) ? usd(p.total) + (ar ? " FOB (أرض المعمل)" : " FOB") : "";
-    const floors = m.floors === 1 ? (ar ? "طابق واحد" : "one floor") : (ar ? "طابقان" : "two floors");
+    const floors = m.floors === 1 ? (ar ? "طابق واحد" : "one floor")
+      : m.floors === 2 ? (ar ? "طابقان" : "two floors") : (ar ? "متعددة الطوابق" : "multi-floor");
     const msg = field("Message");
     if (msg) {
       // area is a spec, not a price, so it stays in the message for non-special models
