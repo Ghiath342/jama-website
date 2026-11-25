@@ -13,6 +13,9 @@
      special: true → no fixed price ("Request a price from JAMA")
    Models with a video are listed first; the home page shows the first six.
    ========================================================================== */
+// Prices are hidden for now. Set to true to show them again (cards, details window, contact form).
+const SHOW_PRICES = false;
+
 const JAMA_PRICING = {
   1: { area: 140, rate: 236 }, // one floor:  140 m² × $236 = $33,040
   2: { area: 280, rate: 270 }, // two floors: 280 m² × $270 = $75,600
@@ -65,9 +68,15 @@ const JAMA_MODELS = [
   const floorsLabel = (m) => (m.floors === 1 ? both("One floor", "طابق واحد") : both("Two floors", "طابقان"));
   const requestHref = (m) => (onHomePage ? "#contact" : "index.html?model=" + m.code + "#contact");
 
+  // a fixed price is shown only when prices are switched on and the model isn't "special"
+  const hasPrice = (m) => SHOW_PRICES && !m.special;
+  const requestLabel = (m, long) => (hasPrice(m)
+    ? (long ? both("Request This Model", "اطلب هذا النموذج") : both("Request", "اطلب"))
+    : both("Request Price", "اطلب السعر"));
+
   function card(m, onHome) {
     const p = priceOf(m);
-    const price = m.special
+    const price = !SHOW_PRICES ? "" : m.special
       ? `<div class="mdl-price mdl-price--quote"><b>${both("Request a price from JAMA", "اطلب السعر من جاما")}</b></div>`
       : `<div class="mdl-price">
             <span class="mdl-label">${both("Price", "السعر")}</span>
@@ -91,7 +100,7 @@ const JAMA_MODELS = [
           ${price}
           <div class="model-card__actions">
             <button type="button" class="btn btn--navy btn--sm" data-details="${m.code}">${both("Details", "التفاصيل")}</button>
-            <a href="${requestHref(m)}" class="btn btn--primary btn--sm" data-model="${m.code}">${m.special ? both("Request Price", "اطلب السعر") : both("Request", "اطلب")}</a>
+            <a href="${requestHref(m)}" class="btn btn--primary btn--sm" data-model="${m.code}">${requestLabel(m, false)}</a>
           </div>
         </div>
       </article>`;
@@ -134,8 +143,8 @@ const JAMA_MODELS = [
       row("Model code", "رمز النموذج", `<span dir="ltr">${m.code}</span>`),
       row("Type", "النوع", floorsLabel(m)),
       m.special ? "" : row("Area", "المساحة", `<span dir="ltr">${p.area} m²</span>`),
-      m.special ? "" : row("Price per m²", "السعر للمتر المربع", `<span dir="ltr">${usd(p.rate)}</span>`),
-      row("Total price", "السعر الإجمالي", m.special
+      !hasPrice(m) ? "" : row("Price per m²", "السعر للمتر المربع", `<span dir="ltr">${usd(p.rate)}</span>`),
+      !SHOW_PRICES ? "" : row("Total price", "السعر الإجمالي", m.special
         ? both("Request a price from JAMA", "اطلب السعر من جاما")
         : `<b dir="ltr">${usd(p.total)}</b> ${FOB_TAG}`),
     ].join("");
@@ -147,7 +156,7 @@ const JAMA_MODELS = [
         <h3>${both(m.name.en, m.name.ar)}</h3>
         <table class="mdl-table"><tbody>${rows}</tbody></table>
         <div class="mdl-modal__actions">
-          <a href="${requestHref(m)}" class="btn btn--primary" data-model="${m.code}">${m.special ? both("Request Price", "اطلب السعر") : both("Request This Model", "اطلب هذا النموذج")}</a>
+          <a href="${requestHref(m)}" class="btn btn--primary" data-model="${m.code}">${requestLabel(m, true)}</a>
         </div>
       </div>`;
     showMedia(items, 0, m);
@@ -214,15 +223,17 @@ const JAMA_MODELS = [
     const area = field("Approx. area (m2)");
     const budget = field("Budget range");
     if (area) area.value = m.special ? "" : p.area;
-    if (budget) budget.value = m.special ? "" : usd(p.total) + (ar ? " FOB (أرض المعمل)" : " FOB");
+    if (budget) budget.value = hasPrice(m) ? usd(p.total) + (ar ? " FOB (أرض المعمل)" : " FOB") : "";
     const floors = m.floors === 1 ? (ar ? "طابق واحد" : "one floor") : (ar ? "طابقان" : "two floors");
     const msg = field("Message");
     if (msg) {
-      msg.value = m.special
-        ? (ar ? `أرغب بمعرفة سعر النموذج ${m.code} — ${m.name.ar} (${floors}).`
-              : `I'd like a price for model ${label} (${floors}).`)
-        : (ar ? `أنا مهتم بالنموذج ${m.code} — ${m.name.ar} (${floors}، ${p.area} م²، ${usd(p.total)} FOB (أرض المعمل)).`
-              : `I'm interested in model ${label} (${floors}, ${p.area} m², ${usd(p.total)} FOB).`);
+      // area is a spec, not a price, so it stays in the message for non-special models
+      const spec = m.special ? floors : `${floors}${ar ? "، " : ", "}${p.area} ${ar ? "م²" : "m²"}`;
+      msg.value = hasPrice(m)
+        ? (ar ? `أنا مهتم بالنموذج ${m.code} — ${m.name.ar} (${spec}، ${usd(p.total)} FOB (أرض المعمل)).`
+              : `I'm interested in model ${label} (${spec}, ${usd(p.total)} FOB).`)
+        : (ar ? `أرغب بمعرفة سعر النموذج ${m.code} — ${m.name.ar} (${spec}).`
+              : `I'd like a price for model ${label} (${spec}).`);
     }
     return true;
   }
